@@ -144,10 +144,8 @@ const Nav = {
         }
         return {menu: initalizMenu, current: current, active: false}
     },
-    created() {
-        this.menu.forEach((slot) => {
-            this.$set(slot, 'hover', false)
-        })
+    created: function() {
+        this.menu.forEach(function (slot) { this.$set(slot, 'hover', false) });
     },
     methods: {
         highlight: function (x) {
