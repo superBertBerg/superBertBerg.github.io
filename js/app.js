@@ -86,7 +86,7 @@ const text = {
 
 var langWatch = {
     watch: {
-        '$route'(to, from) {
+        '$route': function(to, from) {
             this.lang = this.$route.query.lang;
         }
     },
