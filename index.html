@@ -1,0 +1,35 @@
+<!doctype html>
+
+<html xmlns:v-on="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8">
+
+    <title>The Content Dome</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link href="http://fonts.googleapis.com/css?family=Raleway:100,200,300,400,500,600,700,800,900%7COswald:300,400,700%7CDosis:200,300,400,500,600,700,800" rel="stylesheet" type="text/css">
+
+    <script src="./js/vue.js"></script>
+    <script src="./js/vue-router.js"></script>
+</head>
+
+<body id="over">
+<div id="app">
+    <router-view name="main"></router-view>
+
+    <router-view name="nav"></router-view>
+    <div class="mainWindow">
+        <router-view name="homeLeft"></router-view>
+        <router-view name="homeRight"></router-view>
+        <router-view name="aboutLeft"></router-view>
+        <router-view name="aboutRight"></router-view>
+        <router-view name="servicesLeft"></router-view>
+        <router-view name="servicesRight"></router-view>
+        <router-view name="contactLeft"></router-view>
+        <router-view name="contactRight"></router-view>
+    </div>
+</div>
+</body>
+<script src="./js/app.js"></script>
+</html>
