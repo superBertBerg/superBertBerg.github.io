@@ -96,7 +96,7 @@ var Main = {
     template: '<div class="MainView">' +
     '<div :class="{mobile: mobile.mobile}"class="middle">' +
     '<div class="inner">' +
-    '<img v-on:click="linkTo" class="centerHelpVertical" src="./assets/content_dome_immersive_media.png" />' +
+    '<img v-on:click="linkTo(\'en\')" class="centerHelpVertical" src="./assets/content_dome_immersive_media.png" />' +
     '</div>' +
     '<div class="logoWrap link">' +
     '<a class="langLink" v-on:click="linkTo(\'de\')">DE</a>' +
@@ -437,14 +437,23 @@ var app = new Vue({
 }());
 
 window.addEventListener("wheel", function (e) {
-    for (var i = 0; i < app.$children.length; i++) {
-        if (app.$children[i].$el.id == 'navi') {
-            app.$children[i].scrollFunction(e.deltaY);
-        }
-    }
+    scrolled(e.deltaY);
     return false
 }, true);
 
+// window.addEventListener("touchmove", function (e) {
+//     console.log(e)
+//     scrolled(e.deltaY);
+//     return false
+// }, true)
+
+function scrolled(e) {
+    for (var i = 0; i < app.$children.length; i++) {
+        if (app.$children[i].$el.id == 'navi') {
+            app.$children[i].scrollFunction();
+        }
+    }
+}
 function resize () {
     if (rescale > Math.max(document.documentElement.clientWidth, window.innerWidth || 0)) {
         viewPort.mobile = true
