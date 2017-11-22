@@ -1,12 +1,12 @@
 // TODO : on hover text of menu items BOLD
 // TODO : bug hover menu activ pops back
-const rescale = 800; // width rescale < mobile > desktop view
+var rescale = 800; // width rescale < mobile > desktop view
 
-const viewPort = {
+var viewPort = {
     mobile: (rescale > Math.max(document.documentElement.clientWidth, window.innerWidth || 0))
 };
 
-const initalizMenu = [
+var initalizMenu = [
     {
         name: 'home',
         id: 0
@@ -25,7 +25,7 @@ const initalizMenu = [
     }
 ];
 
-const text = {
+var text = {
     homeLeft: {
         de: 'Immersion ist die Überführung in einen Bewusstseinszustand, bei dem sich die Wahrnehmung der eigenen Person in der realen Welt vermindert und gleichzeitig in der virtuellen Welt vergrößert.',
         de1: 'Einfach ausgedrückt: Immersiv ist, was Dich in eine fiktive Welt eintauchen lässt.',
@@ -92,7 +92,7 @@ var langWatch = {
     },
 };
 
-const Main = {
+var Main = {
     template: '<div class="MainView">' +
     '<div :class="{mobile: mobile.mobile}"class="middle">' +
     '<div class="inner">' +
@@ -119,7 +119,7 @@ const Main = {
     }
 };
 
-const Nav = {
+var Nav = {
     props: {
         triggered: {
             default: true,
@@ -176,7 +176,7 @@ const Nav = {
     }
 };
 
-const HomeLeft = {
+var HomeLeft = {
     mixins: [langWatch],
     template: '<transition name="up">' +
     '<div :class="[{mobile: mobile.mobile}, {left: !mobile.mobile}]" class="window">' +
@@ -194,7 +194,7 @@ const HomeLeft = {
     }
 };
 
-const HomeRight = {
+var HomeRight = {
     mixins: [langWatch],
     template: '<transition name="down">' +
     '<div :class="[{mobile: mobile.mobile}, {right: !mobile.mobile}]" class="window">' +
