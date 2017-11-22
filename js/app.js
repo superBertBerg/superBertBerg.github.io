@@ -411,28 +411,28 @@ var app = new Vue({
     }
 });
 
-(function () {
-    var throttle = function (type, name, obj) {
-        obj = obj || window;
-        var running = false;
-        var func = function () {
-            if (running) {
-                return;
-            }
-            running = true;
-            requestAnimationFrame(function () {
-                obj.dispatchEvent(new CustomEvent(name));
-                running = false;
-            });
-        };
-        obj.addEventListener(type, func);
-    };
-    throttle("resize", "optimizedResize");
-})();
+(function() {
 
-window.addEventListener("optimizedResize", function (e) {
-    resize();
-});
+    window.addEventListener("resize", resizeThrottler, false);
+
+    var resizeTimeout;
+    function resizeThrottler() {
+        // ignore resize events as long as an actualResizeHandler execution is in the queue
+        if ( !resizeTimeout ) {
+            resizeTimeout = setTimeout(function() {
+                resizeTimeout = null;
+                actualResizeHandler();
+
+                // The actualResizeHandler will execute at a rate of 15fps
+            }, 66);
+        }
+    }
+
+    function actualResizeHandler() {
+        resize()
+    }
+
+}());
 
 window.addEventListener("wheel", function (e) {
     for (var i = 0; i < app.$children.length; i++) {
