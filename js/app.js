@@ -381,12 +381,12 @@ var router = new VueRouter({
 });
 
 var app = new Vue({
-    router,
+    router: router,
     el: '#app',
     data: {
         mobile: viewPort
     },
-    created() {
+    created: function() {
         resize();
     },
     watch: {
