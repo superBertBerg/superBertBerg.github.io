@@ -447,10 +447,10 @@ window.addEventListener("wheel", function (e) {
 //     return false
 // }, true)
 
-function scrolled(e) {
+function scrolled(move) {
     for (var i = 0; i < app.$children.length; i++) {
         if (app.$children[i].$el.id == 'navi') {
-            app.$children[i].scrollFunction();
+            app.$children[i].scrollFunction(move);
         }
     }
 }
