@@ -145,7 +145,9 @@ var Nav = {
         return {menu: initalizMenu, current: current, active: false}
     },
     created: function() {
-        this.menu.forEach(function (slot) { this.$set(slot, 'hover', false) });
+        var temp = this;
+        this.menu.forEach(function (slot) {
+            temp.$set(slot, 'hover', false) });
     },
     methods: {
         highlight: function (x) {

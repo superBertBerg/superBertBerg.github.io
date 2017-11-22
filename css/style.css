@@ -16,30 +16,35 @@ time, mark, audio, video {
     border: 0;
     vertical-align: baseline;
 }
+
 /* HTML5 display-role reset for older browsers */
 article, aside, details, figcaption, figure,
 footer, header, hgroup, menu, nav, section {
     display: block;
 }
+
 body {
     line-height: 1;
 }
+
 ol, ul {
     list-style: none;
 }
+
 blockquote, q {
     quotes: none;
 }
+
 blockquote:before, blockquote:after,
 q:before, q:after {
     content: '';
     content: none;
 }
+
 table {
     border-collapse: collapse;
     border-spacing: 0;
 }
-
 
 body {
     font-family: 'Oswald', sans-serif;
@@ -51,6 +56,7 @@ a {
     font-family: 'Oswald', sans-serif;
     color: whitesmoke;,
 }
+
 a:hover {
     color: black
 }
@@ -67,8 +73,6 @@ span {
     overflow: hidden;
 }
 
-
-
 /* Main View */
 
 .MainView {
@@ -79,18 +83,19 @@ span {
     text-align: center;
 }
 
-
 /* Center things Horizontal and Vertically*/
 .logoWrap {
     width: 100vw;
     height: 80vh;
     text-align: center;
 }
+
 .centerHelp {
     display: inline-block;
     height: 100%;
     vertical-align: middle;
 }
+
 .centerHelpVertical {
     transform: scale(0.8, 0.8);
 }
@@ -121,6 +126,7 @@ span {
     cursor: pointer;
     transition: .5s;
 }
+
 .line.activeLine {
     height: 3px;
     width: 60px;
@@ -132,6 +138,7 @@ span {
     display: block;
     opacity: 1;
 }
+
 .navMenuHover.activeHover {
     right: 100px;
 }
@@ -144,13 +151,13 @@ span {
     right: 75px;
     transition: opacity 0.5s
 }
+
 /* General */
-
-
 
 .up-enter-active, .up-leave-active, .down-enter-active, .down-leave-active {
     transition: ease 1s
 }
+
 .up-enter {
     position: absolute;
     height: 100vh;
@@ -159,6 +166,7 @@ span {
     top: 0;
     transform: translateY(100%);
 }
+
 .up-leave-to {
     position: absolute;
     top: 0;
@@ -168,7 +176,7 @@ span {
     transform: translateY(-100%);
 }
 
-.down-enter{
+.down-enter {
     position: absolute;
     height: 100vh;
     width: 50vw;
@@ -176,6 +184,7 @@ span {
     top: 0;
     transform: translateY(-100%);
 }
+
 .down-leave-to {
     position: absolute;
     height: 100vh;
@@ -188,9 +197,11 @@ span {
 .side-enter-active, .side-leave-active {
     transition: ease 0.5s
 }
+
 .side-enter {
     transform: translateX(100%);
 }
+
 .side-leave-to {
     transform: translateX(-100%);
 }
@@ -257,6 +268,7 @@ span {
     width: 100%;
     height: auto;
 }
+
 .window.mobile {
     /*position: absolute;*/
     display: table;
@@ -264,10 +276,12 @@ span {
     width: 100%;
     height: 100vh;
 }
+
 /* TEXT */
 .tSpaceB {
     padding-top: 90px;
 }
+
 .tSpaceM {
     padding-top: 30px;
     padding-bottom: 30px;
@@ -293,7 +307,42 @@ span {
 .tSmall.disc {
     line-height: 170%;
 }
+
 /*responsive css*/
 @media (max-width: 800px) {
+    .inner {
+        width: 80%
+    }
+}
 
+@media (max-width: 450px), (max-height: 800px) {
+    .tBig.text {
+        font-size: 27px;
+    }
+    .tMiddle.text {
+        font-size: 20px;
+    }
+    .tSmall.text {
+        font-size: 15px;
+    }
+}
+
+@media (max-width: 360px) {
+    .tBig.text {
+        font-size: 23px;
+    }
+    .tMiddle.text {
+        font-size: 18px;
+    }
+    .tSmall.text {
+        font-size: 14px;
+    }
+    .tSpaceB {
+        padding-top: 50px;
+    }
+
+    .tSpaceM {
+        padding-top: 20px;
+        padding-bottom: 20px;
+    }
 }
