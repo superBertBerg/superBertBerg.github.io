@@ -57,10 +57,10 @@ var text = {
     contactLeft: {
         de: 'IMPRESSUM',
         de1: 'Inhaltlich verantwortlich i.S. des Presserechtes bzw. des Telemediengesetzes (§ 5 TMG):',
-        de2:'the content dome - Gesellschaft für immersive Medien mbH,',
-        de3:'Grosse Reichenstr. 27 | 20457 Hamburg',
-        de4:'GF: Markus Schäfer, Peter Roeschies',
-        de5:'HRB: 127893  |  USt-IdNr.: DE290405001',
+        de2: 'the content dome - Gesellschaft für immersive Medien mbH,',
+        de3: 'Grosse Reichenstr. 27 | 20457 Hamburg',
+        de4: 'GF: Markus Schäfer, Peter Roeschies',
+        de5: 'HRB: 127893  |  USt-IdNr.: DE290405001',
         de6: 'HAFTUNGSAUSSCHLUSS',
         de7: 'Trotz sorgfältiger inhaltlicher Kontrolle übernehmn wir keine Haftung für die Inhalte externer Links.\n' +
         'Für den Inhalt der verlinkten Seiten sind ausschließlich deren Betreiber verantwortlich.\n' +
@@ -86,7 +86,7 @@ var text = {
 
 var langWatch = {
     watch: {
-        '$route': function(to, from) {
+        '$route': function (to, from) {
             this.lang = this.$route.query.lang;
         }
     },
@@ -120,12 +120,6 @@ var Main = {
 };
 
 var Nav = {
-    props: {
-        triggered: {
-            default: true,
-            type: Boolean
-        }
-    },
     template: '<transition name="side">' +
     '<div id="navi" class="positionNav">' +
     '<template v-for="item in menu" >' +
@@ -144,10 +138,11 @@ var Nav = {
         }
         return {menu: initalizMenu, current: current, active: false}
     },
-    created: function() {
+    created: function () {
         var temp = this;
         this.menu.forEach(function (slot) {
-            temp.$set(slot, 'hover', false) });
+            temp.$set(slot, 'hover', false)
+        });
     },
     methods: {
         highlight: function (x) {
@@ -158,22 +153,15 @@ var Nav = {
             this.current = x.id;
         },
         scrollFunction: function (x) {
-            if (this.triggered) {
-                var temp = this;
-                setTimeout(function () {
-                    if (x < 0) {
-                        if (temp.current - 1 >= 0) {
-                            temp.highlight(temp.menu[temp.current - 1])
-                        }
-                    } else if (x > 0) {
-                        if (temp.current + 1 < temp.menu.length) {
-                            temp.highlight(temp.menu[temp.current + 1])
-                        }
-                    }
-                    temp.triggered = true;
-                }, 500)
+            if (x < 0) {
+                if (this.current - 1 >= 0) {
+                    this.highlight(this.menu[this.current - 1])
+                }
+            } else if (x > 0) {
+                if (this.current + 1 < this.menu.length) {
+                    this.highlight(this.menu[this.current + 1])
+                }
             }
-            this.triggered = false;
         }
     }
 };
@@ -388,7 +376,7 @@ var app = new Vue({
     data: {
         mobile: viewPort
     },
-    created: function() {
+    created: function () {
         resize();
     },
     watch: {
@@ -413,15 +401,16 @@ var app = new Vue({
     }
 });
 
-(function() {
+(function () {
 
     window.addEventListener("resize", resizeThrottler, false);
 
     var resizeTimeout;
+
     function resizeThrottler() {
         // ignore resize events as long as an actualResizeHandler execution is in the queue
-        if ( !resizeTimeout ) {
-            resizeTimeout = setTimeout(function() {
+        if (!resizeTimeout) {
+            resizeTimeout = setTimeout(function () {
                 resizeTimeout = null;
                 actualResizeHandler();
 
@@ -436,10 +425,38 @@ var app = new Vue({
 
 }());
 
-window.addEventListener("wheel", function (e) {
-    scrolled(e.deltaY);
-    return false
-}, true);
+(function () {
+
+    window.addEventListener("wheel", function (e) {
+        wheelThrottler(e);
+
+        return false;
+    }, false);
+
+    var wheelTimeout;
+
+    function wheelThrottler(e) {
+        // ignore resize events as long as an actualResizeHandler execution is in the queue
+        if (!wheelTimeout) {
+            wheelTimeout = setTimeout(function () {
+                wheelTimeout = null;
+                actualWheelHandler(e);
+
+                // The actualResizeHandler will execute at a rate of 15fps
+            }, 500);
+        }
+    }
+
+    function actualWheelHandler(e) {
+        scrolled(e.deltaY)
+    }
+
+}());
+
+// window.addEventListener("wheel", function (e) {
+//     scrolled(e.deltaY);
+//     return false
+// }, true);
 
 // window.addEventListener("touchmove", function (e) {
 //     console.log(e)
@@ -454,7 +471,8 @@ function scrolled(move) {
         }
     }
 }
-function resize () {
+
+function resize() {
     if (rescale > Math.max(document.documentElement.clientWidth, window.innerWidth || 0)) {
         viewPort.mobile = true
         document.getElementById('over').style.overflow = 'auto';
