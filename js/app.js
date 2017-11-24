@@ -124,7 +124,7 @@ var Nav = {
     '<div id="navi" class="positionNav">' +
     '<template v-for="item in menu" >' +
     '<a @mouseover="item.hover = true" @mouseleave="item.hover = false"><div class="line" :key="item.id" v-bind:class="{ activeLine: item.id==current }" v-on:click="highlight(item)">' +
-    '<span><div :class="[{navMenuHover: item.hover}, {activeHover: item.id == current}]" class="hidden">{{ item.name.toUpperCase() }}</div></span>' +
+    '<span><div :class="{navMenuHover: item.hover}" class="hidden">{{ item.name.toUpperCase() }}</div></span>' +
     '</div></a>' +
     '</template>' +
     '</div>' +
@@ -151,6 +151,16 @@ var Nav = {
                 query: {lang: this.$route.query.lang}
             });
             this.current = x.id;
+            hoverBlink(this.menu[this.current])
+
+            function hoverBlink(path) {
+                path.hover = true;
+                setTimeout(function () {
+                    path.hover = false;
+                }, 1000)
+            }
+
+
         },
         scrollFunction: function (x) {
             if (x < 0) {
@@ -426,7 +436,6 @@ var app = new Vue({
 (function () {
 
     window.addEventListener("wheel", function (e) {
-       // console.log(e.movementY)
         wheelThrottler(e);
         return false;
     }, false);
@@ -441,6 +450,7 @@ var app = new Vue({
             actualWheelHandler(e);
         }
     }
+
     function actualWheelHandler(e) {
         scrolled(e.deltaY)
     }
@@ -452,7 +462,6 @@ var app = new Vue({
     var prev;
 
     window.addEventListener('touchmove', function (e) {
-        console.log(e.movementY)
         touchThrottler(e.targetTouches[0].clientY)
         prev = e.targetTouches[0].clientY
     }, true);
@@ -473,6 +482,16 @@ var app = new Vue({
     }
 
 }());
+
+
+window.addEventListener('keyup', function (e) {
+
+    if (e.key == "ArrowUp" || e.key == "PageUp") {
+        scrolled(-10)
+    } else if (e.key == "ArrowDown" || e.key == "PageDown") {
+        scrolled(10)
+    }
+}, true);
 
 function scrolled(move) {
     for (var i = 0; i < app.$children.length; i++) {

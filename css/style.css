@@ -98,6 +98,7 @@ span {
 
 .centerHelpVertical {
     transform: scale(0.8, 0.8);
+    cursor: pointer;
 }
 
 .logoWrap.link {
@@ -106,6 +107,7 @@ span {
 
 .langLink {
     vertical-align: middle;
+    cursor: pointer;
 }
 
 /* Menu=Nav */
@@ -121,6 +123,7 @@ span {
     position: relative;
     height: 4px;
     margin: 5px;
+    margin-left: 15px;
     width: 35px;
     background-color: whitesmoke;
     cursor: pointer;
@@ -131,16 +134,12 @@ span {
     height: 3px;
     width: 45px;
     background-color: dimgray;
-    transition: opacity .5s;
+    transition: all .5s;
 }
 
 .navMenuHover.hidden {
     display: block;
     opacity: 1;
-}
-
-.navMenuHover.activeHover {
-    right: 60px;
 }
 
 .hidden {
@@ -149,7 +148,7 @@ span {
     position: absolute;
     top: -10px;
     white-space: nowrap;
-    right: 50px;
+    right: 60px;
     transition: opacity 0.5s
 }
 
