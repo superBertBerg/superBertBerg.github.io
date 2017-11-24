@@ -152,7 +152,7 @@ var Nav = {
             });
             this.current = x.id;
         },
-        scrollFunction: function (x   ) {
+        scrollFunction: function (x) {
             if (x < 0) {
                 if (this.current - 1 >= 0) {
                     this.highlight(this.menu[this.current - 1])
@@ -425,42 +425,27 @@ var app = new Vue({
 
 (function () {
 
-    var currentWheelSpeed = 0;
-
     window.addEventListener("wheel", function (e) {
-        console.log(e.movementY)
+       // console.log(e.movementY)
         wheelThrottler(e);
         return false;
     }, false);
 
     var wheelTimeout;
 
-
     function wheelThrottler(e) {
-        // ignore resize events as long as an actualResizeHandler execution is in the queue
-        // console.log('before', e.deltaY)
         if (!wheelTimeout) {
             wheelTimeout = setTimeout(function () {
                 wheelTimeout = null;
-                // console.log('after',e.deltaY)
-                if (currentWheelSpeed<0) {
-                    currentWheelSpeed += 10;
-                } else {
-                    currentWheelSpeed -= 10;
-                }
-                console.log('timeout ', currentWheelSpeed)
             }, 1000);
             actualWheelHandler(e);
-            currentWheelSpeed = e.deltaY;
-            console.log('after func', currentWheelSpeed)
         }
     }
-
     function actualWheelHandler(e) {
         scrolled(e.deltaY)
     }
-
 }());
+
 
 (function () {
 
@@ -475,15 +460,11 @@ var app = new Vue({
     var wheelTimeout;
 
     function touchThrottler(e) {
-        // ignore resize events as long as an actualResizeHandler execution is in the queue
         if (!wheelTimeout) {
             wheelTimeout = setTimeout(function () {
                 wheelTimeout = null;
-
-
-                // The actualResizeHandler will execute at a rate of 15fps
             }, 500);
-            actualWheelHandler(e-prev);
+            actualWheelHandler(e - prev);
         }
     }
 
@@ -492,19 +473,6 @@ var app = new Vue({
     }
 
 }());
-
-// window.addEventListener("wheel", function (e) {
-//     scrolled(e.deltaY);
-//     return false
-// }, true);
-
-// window.addEventListener("touchmove", function (e) {
-//     console.log(e)
-//     scrolled(e.deltaY);
-//     return false
-// }, true)
-
-
 
 function scrolled(move) {
     for (var i = 0; i < app.$children.length; i++) {
