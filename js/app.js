@@ -449,7 +449,7 @@ var app = new Vue({
                     currentWheelSpeed -= 10;
                 }
                 console.log('timeout ', currentWheelSpeed)
-            }, 500);
+            }, 1000);
             actualWheelHandler(e);
             currentWheelSpeed = e.deltaY;
             console.log('after func', currentWheelSpeed)
@@ -467,6 +467,7 @@ var app = new Vue({
     var prev;
 
     window.addEventListener('touchmove', function (e) {
+        console.log(e.movementY)
         touchThrottler(e.targetTouches[0].clientY)
         prev = e.targetTouches[0].clientY
     }, true);
