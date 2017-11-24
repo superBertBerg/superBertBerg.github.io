@@ -1,6 +1,6 @@
 // TODO : on hover text of menu items BOLD
 // TODO : bug hover menu activ pops back
-var rescale = 800; // width rescale < mobile > desktop view
+var rescale = 700; // width rescale < mobile > desktop view
 
 var viewPort = {
     mobile: (rescale > Math.max(document.documentElement.clientWidth, window.innerWidth || 0))
@@ -152,7 +152,7 @@ var Nav = {
             });
             this.current = x.id;
         },
-        scrollFunction: function (x) {
+        scrollFunction: function (x   ) {
             if (x < 0) {
                 if (this.current - 1 >= 0) {
                     this.highlight(this.menu[this.current - 1])
@@ -277,7 +277,6 @@ var ContactLeft = {
     '<p class="tSmall text">{{ text[lang + "3" ]}}</p><br>' +
     '<p class="tSmall text">{{ text[lang + "4" ]}}</p><br>' +
     '<p class="tSmall text">{{ text[lang + "5" ]}}</p><br>' +
-    '<div class="tab"></div>' +
     '<p class="tSmall text">{{ text[lang + "6" ]}}</p><br>' +
     '<p class="tSmall disc text">{{ text[lang + "7" ]}}</p>' +
     '</div>' +
@@ -301,7 +300,6 @@ var ContactRight = {
     '<p class="tSpaceM tab tSmall text">{{ text[lang] }}</p>' +
     '<img src="./assets/ic_phone_iphone_white_24px.svg">' +
     '<p class="tSpaceM tSmall text">{{ text[lang + "1" ]}}</p>' +
-    '<div class="tab"></div>' +
     '<img src="./assets/ic_mail_outline_white_24px.svg">' +
     '<p class="tSpaceM tSmall text">{{ text[lang + "2" ]}}</p>' +
     '</div>' +
@@ -427,28 +425,69 @@ var app = new Vue({
 
 (function () {
 
-    window.addEventListener("wheel", function (e) {
-        wheelThrottler(e);
+    var currentWheelSpeed = 0;
 
+    window.addEventListener("wheel", function (e) {
+        console.log(e.movementY)
+        wheelThrottler(e);
         return false;
     }, false);
 
     var wheelTimeout;
 
+
     function wheelThrottler(e) {
         // ignore resize events as long as an actualResizeHandler execution is in the queue
+        // console.log('before', e.deltaY)
         if (!wheelTimeout) {
             wheelTimeout = setTimeout(function () {
                 wheelTimeout = null;
-                actualWheelHandler(e);
-
-                // The actualResizeHandler will execute at a rate of 15fps
+                // console.log('after',e.deltaY)
+                if (currentWheelSpeed<0) {
+                    currentWheelSpeed += 10;
+                } else {
+                    currentWheelSpeed -= 10;
+                }
+                console.log('timeout ', currentWheelSpeed)
             }, 500);
+            actualWheelHandler(e);
+            currentWheelSpeed = e.deltaY;
+            console.log('after func', currentWheelSpeed)
         }
     }
 
     function actualWheelHandler(e) {
         scrolled(e.deltaY)
+    }
+
+}());
+
+(function () {
+
+    var prev;
+
+    window.addEventListener('touchmove', function (e) {
+        touchThrottler(e.targetTouches[0].clientY)
+        prev = e.targetTouches[0].clientY
+    }, true);
+
+    var wheelTimeout;
+
+    function touchThrottler(e) {
+        // ignore resize events as long as an actualResizeHandler execution is in the queue
+        if (!wheelTimeout) {
+            wheelTimeout = setTimeout(function () {
+                wheelTimeout = null;
+
+
+                // The actualResizeHandler will execute at a rate of 15fps
+            }, 500);
+            actualWheelHandler(e-prev);
+        }
+    }
+
+    function actualWheelHandler(e) {
+        scrolled(e)
     }
 
 }());
@@ -463,6 +502,8 @@ var app = new Vue({
 //     scrolled(e.deltaY);
 //     return false
 // }, true)
+
+
 
 function scrolled(move) {
     for (var i = 0; i < app.$children.length; i++) {

@@ -309,20 +309,86 @@ span {
     line-height: 170%;
 }
 
+
 /*responsive css*/
-@media (max-width: 800px) {
+@media screen and (max-width: 800px) and (max-height: 600px) {
+    .tBig.text {
+        font-size: 22px;
+    }
+
+    .tMiddle.text {
+        font-size: 17px;
+    }
+
+    .tSmall.text {
+        font-size: 13px;
+    }
+
+    .tSpaceB {
+        padding-top: 20px;
+    }
+
+    .tSpaceM {
+        padding-top: 20px;
+        padding-bottom: 20px;
+    }
+
     .inner {
         width: 80%
     }
+
+    .maxSize {
+        max-width: 70%;
+    }
 }
 
-@media (max-width: 450px), (max-height: 800px) {
+@media screen and (width: 768px) and (height: 1024px) {
+    .tBig.text {
+        font-size: 28px;
+    }
+}
+
+@media (max-width: 700px) {
+    .inner {
+        width: 80%
+    }
+
+    .maxSize {
+        max-width: 100%;
+    }
+
+    .tBig.text {
+        line-height: 145%;
+        font-size: 36px;
+    }
+
+    .tMiddle.text {
+        font-size: 24px;
+    }
+
+    .tSmall.text {
+        font-size: 17px;
+    }
+
+    .tSpaceB {
+        padding-top: 90px;
+    }
+
+    .tSpaceM {
+        padding-top: 30px;
+        padding-bottom: 30px;
+    }
+}
+
+@media screen and (max-width: 450px) and (max-height: 800px) {
     .tBig.text {
         font-size: 27px;
     }
+
     .tMiddle.text {
         font-size: 20px;
     }
+
     .tSmall.text {
         font-size: 15px;
     }
@@ -332,12 +398,15 @@ span {
     .tBig.text {
         font-size: 23px;
     }
+
     .tMiddle.text {
         font-size: 18px;
     }
+
     .tSmall.text {
         font-size: 14px;
     }
+
     .tSpaceB {
         padding-top: 50px;
     }
