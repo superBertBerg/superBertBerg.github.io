@@ -1,5 +1,4 @@
-// TODO : on hover text of menu items BOLD
-// TODO : bug hover menu activ pops back
+//TODO es wird alles in der history gespeichert das soll so nicht sein....
 var rescale = 700; // width rescale < mobile > desktop view
 
 var viewPort = {
@@ -86,10 +85,10 @@ var text = {
 
 var langWatch = {
     watch: {
-        '$route': function (to, from) {
+        '$route': function () {
             this.lang = this.$route.query.lang;
         }
-    },
+    }
 };
 
 var Main = {
@@ -120,61 +119,70 @@ var Main = {
 };
 
 var Nav = {
-    template: '<transition name="side">' +
-    '<div id="navi" class="positionNav">' +
-    '<template v-for="item in menu" >' +
-    '<a @mouseover="item.hover = true" @mouseleave="item.hover = false"><div class="line" :key="item.id" v-bind:class="{ activeLine: item.id==current }" v-on:click="highlight(item)">' +
-    '<span><div :class="{navMenuHover: item.hover}" class="hidden">{{ item.name.toUpperCase() }}</div></span>' +
-    '</div></a>' +
-    '</template>' +
-    '</div>' +
-    '</transition>',
-    data: function () {
-        var current = 0;
-        for (var subMenus in initalizMenu) {
-            if (this.$route.path.indexOf(initalizMenu[subMenus].name) !== -1) {
-                current = initalizMenu[subMenus].id;
+        template: '<transition name="side">' +
+        '<div id="navi" class="positionNav">' +
+        '<template v-for="item in menu" >' +
+        '<a @mouseover="item.hover = true" @mouseleave="item.hover = false"><div class="line" :key="item.id" v-bind:class="{ activeLine: item.id==current }" v-on:click="highlight(item)">' +
+        '<span><div :class="{navMenuHover: item.hover}" class="hidden">{{ item.name.toUpperCase() }}</div></span>' +
+        '</div></a>' +
+        '</template>' +
+        '</div>' +
+        '</transition>',
+        data: function () {
+            var current = 0;
+            for (var subMenus in initalizMenu) {
+                if (this.$route.path.indexOf(initalizMenu[subMenus].name) !== -1) {
+                    current = initalizMenu[subMenus].id;
+                }
             }
-        }
-        return {menu: initalizMenu, current: current, active: false}
-    },
-    created: function () {
-        var temp = this;
-        this.menu.forEach(function (slot) {
-            temp.$set(slot, 'hover', false)
-        });
-    },
-    methods: {
-        highlight: function (x) {
-            this.$router.push({
-                path: '/' + x.name + '/',
-                query: {lang: this.$route.query.lang}
+            return {menu: initalizMenu, current: current, active: false}
+        },
+        created: function () {
+            var temp = this;
+            this.menu.forEach(function (slot) {
+                temp.$set(slot, 'hover', false)
             });
-            this.current = x.id;
-            hoverBlink(this.menu[this.current])
-
-            function hoverBlink(path) {
+        },
+        watch: {
+            '$route': function (to) {
+                var temp = to.path.slice(1, -1);
+                for (var i=0; i<this.menu.length; i++) {
+                    if(this.menu[i].name == temp) {
+                        this.current = this.menu[i].id;
+                        this.hoverBlink(this.menu[i])
+                    }
+                }
+            }
+        },
+        methods: {
+            highlight: function (x) {
+                this.$router.push({
+                    path: '/' + x.name + '/',
+                    query: {lang: this.$route.query.lang}
+                });
+                this.current = x.id;
+                this.hoverBlink(this.menu[this.current])
+            },
+            hoverBlink: function (path) {
                 path.hover = true;
                 setTimeout(function () {
                     path.hover = false;
                 }, 1000)
-            }
-
-
-        },
-        scrollFunction: function (x) {
-            if (x < 0) {
-                if (this.current - 1 >= 0) {
-                    this.highlight(this.menu[this.current - 1])
-                }
-            } else if (x > 0) {
-                if (this.current + 1 < this.menu.length) {
-                    this.highlight(this.menu[this.current + 1])
+            },
+            scrollFunction: function (x) {
+                if (x < 0) {
+                    if (this.current - 1 >= 0) {
+                        this.highlight(this.menu[this.current - 1])
+                    }
+                } else if (x > 0) {
+                    if (this.current + 1 < this.menu.length) {
+                        this.highlight(this.menu[this.current + 1])
+                    }
                 }
             }
         }
     }
-};
+;
 
 var HomeLeft = {
     mixins: [langWatch],
