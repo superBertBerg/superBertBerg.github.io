@@ -65,10 +65,6 @@ span {
     color: whitesmoke;
 }
 
-#app {
-    overflow-x: hidden;
-}
-
 .overflow {
     overflow: hidden;
 }

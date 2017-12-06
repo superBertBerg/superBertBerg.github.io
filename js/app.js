@@ -510,11 +510,11 @@ function scrolled(move) {
 }
 
 function resize() {
+    console.log(viewPort.mobile)
     if (rescale > Math.max(document.documentElement.clientWidth, window.innerWidth || 0)) {
         viewPort.mobile = true
         document.getElementById('over').style.overflow = 'auto';
         document.getElementById('over').style['overflow-x'] = 'hidden';
-
     } else {
         viewPort.mobile = false
         document.getElementById('over').style.overflow = 'hidden'
