@@ -514,6 +514,7 @@ function resize() {
     if (rescale > Math.max(document.documentElement.clientWidth, window.innerWidth || 0)) {
         viewPort.mobile = true
         document.getElementById('over').style.overflow = 'auto';
+        // document.getElementById('over').style.position = 'relative';
         document.getElementById('over').style['overflow-x'] = 'hidden';
     } else {
         viewPort.mobile = false

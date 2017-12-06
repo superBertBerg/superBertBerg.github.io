@@ -50,6 +50,7 @@ body {
     font-family: 'Oswald', sans-serif;
     background-color: #293F53;
     color: whitesmoke;
+    position: relative;
 }
 
 a {
