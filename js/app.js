@@ -465,32 +465,32 @@ var app = new Vue({
 }());
 
 
-(function () {
-
-    var prev;
-
-    window.addEventListener('touchmove', function (e) {
-        touchThrottler(e.targetTouches[0].clientY)
-        prev = e.targetTouches[0].clientY
-    }, true);
-
-    var wheelTimeout;
-
-    function touchThrottler(e) {
-        if (!wheelTimeout) {
-            wheelTimeout = setTimeout(function () {
-                wheelTimeout = null;
-            }, 500);
-            actualWheelHandler(e - prev);
-        }
-    }
-
-    function actualWheelHandler(e) {
-        scrolled(e)
-    }
-
-}());
-
+// (function () {
+//
+//     var prev;
+//
+//     window.addEventListener('touchmove', function (e) {
+//         touchThrottler(e.targetTouches[0].clientY)
+//         prev = e.targetTouches[0].clientY
+//     }, true);
+//
+//     var wheelTimeout;
+//
+//     function touchThrottler(e) {
+//         if (!wheelTimeout) {
+//             wheelTimeout = setTimeout(function () {
+//                 wheelTimeout = null;
+//             }, 500);
+//             actualWheelHandler(e - prev);
+//         }
+//     }
+//
+//     function actualWheelHandler(e) {
+//         scrolled(e)
+//     }
+//
+// }());
+//
 
 window.addEventListener('keyup', function (e) {
 
@@ -509,15 +509,67 @@ function scrolled(move) {
     }
 }
 
+var tsta = 0;
+var tend = 0;
+
+
 function resize() {
     console.log(viewPort.mobile)
+
     if (rescale > Math.max(document.documentElement.clientWidth, window.innerWidth || 0)) {
         viewPort.mobile = true
         document.getElementById('over').style.overflow = 'auto';
         // document.getElementById('over').style.position = 'relative';
         document.getElementById('over').style['overflow-x'] = 'hidden';
+        document.getElementById('over').removeEventListener('touchmove', function () {
+            console.log('wtf')
+            return
+        })
+        document.getElementById('over').removeEventListener('touchstart', function () {
+            return
+        })
+        document.getElementById('over').removeEventListener('touchend', function () {
+            return
+        })
     } else {
         viewPort.mobile = false
         document.getElementById('over').style.overflow = 'hidden'
+        document.getElementById('over').addEventListener('touchmove', function (e) {
+            e.preventDefault();
+        }, {passive: false})
+        document.getElementById('over').addEventListener('touchstart', function (e) {
+            // console.log('start')
+            tsta = e.changedTouches[0].clientY
+            // console.log(e)
+        })
+        document.getElementById('over').addEventListener('touchend', function (e) {
+            // console.log('end')
+            tend = e.changedTouches[0].clientY
+            touchThrottler()
+        })
+    }
+}
+
+//TODO get the fucking touch to work
+function touchThrottler() {
+    // console.log(e)
+    // console.log('current', e.targetTouches[0].clientY)
+    // e.touchend
+    // if (!wheelTimeout) {
+    //     prev = e.targetTouches[0].clientY;
+    //     console.log('prev', prev)
+    //     wheelTimeout = setTimeout(function () {
+    //         prev = 0;
+    //         console.log('reset')
+    //         wheelTimeout = null;
+    //     }, 500);
+    //     setTimeout(function () {
+    //         console.log('now', e.targetTouches[0].clientY, 'prev', prev)
+    //         scrolled(e.targetTouches[0].clientY - prev);
+    //     }, 100)
+    // }
+
+    if (tsta - tend != 0) {
+        scrolled(tsta-tend)
     }
 }
