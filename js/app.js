@@ -512,7 +512,20 @@ function scrolled(move) {
 var tsta = 0;
 var tend = 0;
 
-
+function stopIt(e) {
+    e.preventDefault();
+    e.stopPropagation();
+}
+function startTouch(e) {
+    // console.log('start')
+    tsta = e.changedTouches[0].clientY
+    // console.log(e)
+}
+function endTouch(e) {
+    // console.log('end')
+    tend = e.changedTouches[0].clientY
+    touchThrottler()
+}
 function resize() {
     console.log(viewPort.mobile)
 
@@ -521,10 +534,9 @@ function resize() {
         document.getElementById('over').style.overflow = 'auto';
         // document.getElementById('over').style.position = 'relative';
         document.getElementById('over').style['overflow-x'] = 'hidden';
-        document.getElementById('over').removeEventListener('touchmove', function () {
-            console.log('wtf')
-            return
-        })
+        console.log(document.getElementById('over'))
+
+        document.getElementById('over').removeEventListener('touchmove', stopIt)
         document.getElementById('over').removeEventListener('touchstart', function () {
             return
         })
@@ -534,19 +546,9 @@ function resize() {
     } else {
         viewPort.mobile = false
         document.getElementById('over').style.overflow = 'hidden'
-        document.getElementById('over').addEventListener('touchmove', function (e) {
-            e.preventDefault();
-        }, {passive: false})
-        document.getElementById('over').addEventListener('touchstart', function (e) {
-            // console.log('start')
-            tsta = e.changedTouches[0].clientY
-            // console.log(e)
-        })
-        document.getElementById('over').addEventListener('touchend', function (e) {
-            // console.log('end')
-            tend = e.changedTouches[0].clientY
-            touchThrottler()
-        })
+        document.getElementById('over').addEventListener('touchmove', stopIt, {passive: false})
+        document.getElementById('over').addEventListener('touchstart', startTouch)
+        document.getElementById('over').addEventListener('touchend', endTouch)
     }
 }
 
