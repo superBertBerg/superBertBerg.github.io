@@ -155,16 +155,6 @@ span {
     transition: ease 1s
 }
 
-.asdfg {
-    left: 0;
-    top: 0;
-}
-
-.asdf {
-    right: 0;
-    top: 0;
-}
-
 .up-enter {
     position: absolute;
     height: 100vh;
@@ -174,6 +164,8 @@ span {
 
 .up-leave-to {
     position: absolute;
+    top: 0;
+    left: 0;
     height: 100vh;
     width: 50vw;
     transform: translateY(-100%);
@@ -183,6 +175,8 @@ span {
     position: absolute;
     height: 100vh;
     width: 50vw;
+    right: 0;
+    top: 0;
     transform: translateY(-100%);
 }
 
@@ -190,6 +184,8 @@ span {
     position: absolute;
     height: 100vh;
     width: 50vw;
+    right: 0;
+    top: 0;
     transform: translateY(100%);
 }
 

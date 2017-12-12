@@ -5,7 +5,8 @@
 var rescale = 700; // width rescale < mobile > desktop view
 
 var reversed = {
-    rev: 'up'
+    rev: 'up',
+    changed: ''
 };
 
 var viewPort = {
@@ -90,19 +91,11 @@ var text = {
     }
 };
 
-var langWatch = {
-    watch: {
-        '$route': function () {
-            console.log('asdfsdfadsfga')
-            this.lang = this.$route.query.lang;
-        }
-    }
-};
-
+//rechts
 var revDo = {
     props: {
-        transition: {
-            default: 'up',
+        direction: {
+            default: 'down',
             type: String
         },
         addPosition: {
@@ -111,33 +104,24 @@ var revDo = {
         }
     },
     methods: {
-        changeTransition: function () {
-            console.log('right Function', reversed.rev)
+        changeDirection: function () {
+            ///console.log('right Function', reversed.rev)
             if (reversed.rev == 'up') {
-                console.log('right: down')
-                this.transition = 'down'
+                // console.log('right: down')
+                return 'down'
             } else if (reversed.rev == 'down') {
-                console.log('right: up')
-                this.transition = 'up'
+                //console.log('right: up')
+                return 'down'
             } else {
-                this.transition = 'down'
+                return 'down'
             }
         }
-    },
-    beforeRouteUpdate: function (to, from, next) {
-        this.changeTransition()
     }
-    // watch: {
-    //     '$route': function () {
-    //         console.log('hae??')
-    //         this.lang = this.$route.query.lang;
-    //         this.changeTransition();
-    //     }
-    // }
 }
+//links
 var revUp = {
     props: {
-        transition: {
+        direction: {
             default: 'up',
             type: String
         },
@@ -147,28 +131,20 @@ var revUp = {
         }
     },
     methods: {
-        changeTransition: function () {
+        changeDirection: function () {
             console.log('left Function', reversed.rev)
             if (reversed.rev == 'up') {
                 console.log('left: up')
-                this.transition = 'up'
+                return 'down'
             } else if (reversed.rev == 'down') {
                 console.log('left: down')
-                this.transition = 'down'
+                return 'down'
             } else {
-                this.transition = 'up'
+                return 'down'
             }
         }
-    },
-    beforeRouteUpdate: function (to, from, next) {
-        console.log(to, from, next)
     }
-    // watch: {
-    //     '$route': function () {
-    //         this.lang = this.$route.query.lang;
-    //         this.changeTransition();
-    //     }
-    // }
+
 }
 
 var Main = {
@@ -199,77 +175,73 @@ var Main = {
 };
 
 var Nav = {
-        template: '<transition name="side">' +
-        '<div id="navi" class="positionNav">' +
-        '<template v-for="item in menu" >' +
-        '<a @mouseover="item.hover = true" @mouseleave="item.hover = false"><div class="line" :key="item.id" v-bind:class="{ activeLine: item.id==current }" v-on:click="highlight(item)">' +
-        '<span><div :class="{navMenuHover: item.hover}" class="hidden">{{ item.name.toUpperCase() }}</div></span>' +
-        '</div></a>' +
-        '</template>' +
-        '</div>' +
-        '</transition>',
-        data: function () {
-            var current = 0;
-            for (var subMenus in initalizMenu) {
-                if (this.$route.path.indexOf(initalizMenu[subMenus].name) !== -1) {
-                    current = initalizMenu[subMenus].id;
-                }
+    template: '<transition name="side">' +
+    '<div id="navi" class="positionNav">' +
+    '<template v-for="item in menu" >' +
+    '<a @mouseover="item.hover = true" @mouseleave="item.hover = false"><div class="line" :key="item.id" v-bind:class="{ activeLine: item.id==current }" v-on:click="highlight(item)">' +
+    '<span><div :class="{navMenuHover: item.hover}" class="hidden">{{ item.name.toUpperCase() }}</div></span>' +
+    '</div></a>' +
+    '</template>' +
+    '</div>' +
+    '</transition>',
+    data: function () {
+        var current = 0;
+        for (var subMenus in initalizMenu) {
+            if (this.$route.path.indexOf(initalizMenu[subMenus].name) !== -1) {
+                current = initalizMenu[subMenus].id;
             }
-            return {menu: initalizMenu, current: current, active: false}
-        },
-        created: function () {
-            var temp = this;
-            this.menu.forEach(function (slot) {
-                temp.$set(slot, 'hover', false)
+        }
+        return {menu: initalizMenu, current: current, active: false}
+    },
+    created: function () {
+        var temp = this;
+        this.menu.forEach(function (slot) {
+            temp.$set(slot, 'hover', false)
+        });
+    },
+    watch: {
+        '$route': function (to) {
+            console.log('asdf', this)
+            console.log('wtf')
+        }
+    },
+    methods: {
+        highlight: function (x) {
+            this.$router.push({
+                path: '/' + x.name + '/',
+                query: {lang: this.$route.query.lang}
             });
+            this.current = x.id;
+            this.hoverBlink(this.menu[this.current])
         },
-        watch: {
-            '$route': function (to) {
-                console.log('asdf')
-                var temp = to.path.slice(1, -1);
-                for (var i=0; i<this.menu.length; i++) {
-                    if(this.menu[i].name == temp) {
-                        this.current = this.menu[i].id;
-                        this.hoverBlink(this.menu[i])
-                    }
+        hoverBlink: function (path) {
+            path.hover = true;
+            setTimeout(function () {
+                path.hover = false;
+            }, 1000)
+        },
+        scrollFunction: function (x) {
+            if (x < 0) {
+                if (this.current - 1 >= 0) {
+                    reversed.rev = 'down';
+                    reversed.changed = Math.random();
+                    this.highlight(this.menu[this.current - 1])
                 }
-            }
-        },
-        methods: {
-            highlight: function (x) {
-                this.$router.push({
-                    path: '/' + x.name + '/',
-                    query: {lang: this.$route.query.lang}
-                });
-                this.current = x.id;
-                this.hoverBlink(this.menu[this.current])
-            },
-            hoverBlink: function (path) {
-                path.hover = true;
-                setTimeout(function () {
-                    path.hover = false;
-                }, 1000)
-            },
-            scrollFunction: function (x) {
-                if (x < 0) {
-                    if (this.current - 1 >= 0) {
-                        reversed.rev = 'down';
-                        this.highlight(this.menu[this.current - 1])
-                    }
-                } else if (x > 0) {
-                    if (this.current + 1 < this.menu.length) {
-                        reversed.rev = 'up';
-                        this.highlight(this.menu[this.current + 1])
-                    }
+            } else if (x > 0) {
+                if (this.current + 1 < this.menu.length) {
+                    reversed.rev = 'up';
+                    reversed.changed = Math.random();
+                    console.log(reversed.changed)
+                    this.highlight(this.menu[this.current + 1])
                 }
             }
         }
     }
-;
+}
 
 var HomeLeft = {
-    mixins: [langWatch, revUp],
-    template: '<transition :name="transition">' +
+    mixins: [revUp],
+    template: '<transition :name="direction" :class="avc">' +
     '<div :class="[{mobile: mobile.mobile}, {left: !mobile.mobile}]" class="window">' +
     '<div class="middle">' +
     '<div class="inner">' +
@@ -282,12 +254,17 @@ var HomeLeft = {
     '</transition>',
     data: function () {
         return {lang: this.$route.query.lang, text: text.homeLeft, mobile: viewPort}
+    },
+    computed: {
+        avc: function () {
+            console.log(this)
+        }
     }
 };
 
 var HomeRight = {
-    mixins: [langWatch, revDo],
-    template: '<transition :name="transition">' +
+    mixins: [revDo],
+    template: '<transition :name="direction">' +
     '<div :class="[{mobile: mobile.mobile}, {right: !mobile.mobile}]" class="window">' +
     '<div class="middle backgroundBlack">' +
     '<img src="./assets/content_dome_immersive_media.png"/>' +
@@ -300,8 +277,8 @@ var HomeRight = {
 };
 
 var AboutLeft = {
-    mixins: [langWatch, revUp],
-    template: '<transition :name="transition">' +
+    mixins: [revUp],
+    template: '<transition :name="direction">' +
     '<div :class="[{mobile: mobile.mobile}, {left: !mobile.mobile}]" class="window">' +
     '<div class="middle">' +
     '<div class="inner">' +
@@ -317,8 +294,8 @@ var AboutLeft = {
 };
 
 var AboutRight = {
-    mixins: [langWatch, revDo],
-    template: '<transition :name="transition">' +
+    mixins: [revDo],
+    template: '<transition :name="direction">' +
     '<div :class="[{mobile: mobile.mobile}, {right: !mobile.mobile}]" class="window">' +
     '<div class="middle backgroundBlack">' +
     '<div class="inner">' +
@@ -334,8 +311,8 @@ var AboutRight = {
 };
 
 var ServicesLeft = {
-    mixins: [langWatch, revUp],
-    template: '<transition :name="transition">' +
+    mixins: [revUp],
+    template: '<transition :name="direction">' +
     '<div :class="[{mobile: mobile.mobile}, {left: !mobile.mobile}]" class="window">' +
     '<div class="middle backgroundBlack">' +
     '<img src="./assets/content_dome_immersive_media.png"/>' +
@@ -348,8 +325,8 @@ var ServicesLeft = {
 };
 
 var ServicesRight = {
-    mixins: [langWatch, revDo],
-    template: '<transition :name="transition">' +
+    mixins: [revDo],
+    template: '<transition :name="direction">' +
     '<div :class="[{mobile: mobile.mobile}, {right: !mobile.mobile}]" class="window">' +
     '<div class="middle">' +
     '<div class="inner">' +
@@ -366,8 +343,8 @@ var ServicesRight = {
 };
 
 var ContactLeft = {
-    mixins: [langWatch, revUp],
-    template: '<transition :name="transition">' +
+    mixins: [revUp],
+    template: '<transition :name="direction">' +
     '<div :class="[{mobile: mobile.mobile}, {left: !mobile.mobile}]" class="window">' +
     '<div class="middle">' +
     '<div class="inner">' +
@@ -390,8 +367,8 @@ var ContactLeft = {
 };
 
 var ContactRight = {
-    mixins: [langWatch, revDo],
-    template: '<transition :name="transition">' +
+    mixins: [revDo],
+    template: '<transition :name="direction">' +
     '<div :class="[{mobile: mobile.mobile}, {right: !mobile.mobile}]" class="window">' +
     '<div class="middle">' +
     '<div class="inner">' +
@@ -545,34 +522,6 @@ var app = new Vue({
     }
 }());
 
-
-// (function () {
-//
-//     var prev;
-//
-//     window.addEventListener('touchmove', function (e) {
-//         touchThrottler(e.targetTouches[0].clientY)
-//         prev = e.targetTouches[0].clientY
-//     }, true);
-//
-//     var wheelTimeout;
-//
-//     function touchThrottler(e) {
-//         if (!wheelTimeout) {
-//             wheelTimeout = setTimeout(function () {
-//                 wheelTimeout = null;
-//             }, 500);
-//             actualWheelHandler(e - prev);
-//         }
-//     }
-//
-//     function actualWheelHandler(e) {
-//         scrolled(e)
-//     }
-//
-// }());
-//
-
 window.addEventListener('keyup', function (e) {
 
     if (e.key == "ArrowUp" || e.key == "PageUp") {
@@ -597,16 +546,19 @@ function stopIt(e) {
     e.preventDefault();
     e.stopPropagation();
 }
+
 function startTouch(e) {
     // console.log('start')
     tsta = e.changedTouches[0].clientY
     // console.log(e)
 }
+
 function endTouch(e) {
     // console.log('end')
     tend = e.changedTouches[0].clientY
     touchThrottler()
 }
+
 function resize() {
     console.log(viewPort.mobile)
 
@@ -635,24 +587,46 @@ function resize() {
 
 //TODO get the fucking touch to work
 function touchThrottler() {
-    // console.log(e)
-    // console.log('current', e.targetTouches[0].clientY)
-    // e.touchend
-    // if (!wheelTimeout) {
-    //     prev = e.targetTouches[0].clientY;
-    //     console.log('prev', prev)
-    //     wheelTimeout = setTimeout(function () {
-    //         prev = 0;
-    //         console.log('reset')
-    //         wheelTimeout = null;
-    //     }, 500);
-    //     setTimeout(function () {
-    //         console.log('now', e.targetTouches[0].clientY, 'prev', prev)
-    //         scrolled(e.targetTouches[0].clientY - prev);
-    //     }, 100)
-    // }
 
     if (tsta - tend != 0) {
-        scrolled(tsta-tend)
+        scrolled(tsta - tend)
     }
 }
+
+
+// var langWatch = {
+//     watch: {
+//         '$route': function () {
+//             console.log('asdfsdfadsfga')
+//             this.lang = this.$route.query.lang;
+//         }
+//     }
+// };
+
+
+// (function () {
+//
+//     var prev;
+//
+//     window.addEventListener('touchmove', function (e) {
+//         touchThrottler(e.targetTouches[0].clientY)
+//         prev = e.targetTouches[0].clientY
+//     }, true);
+//
+//     var wheelTimeout;
+//
+//     function touchThrottler(e) {
+//         if (!wheelTimeout) {
+//             wheelTimeout = setTimeout(function () {
+//                 wheelTimeout = null;
+//             }, 500);
+//             actualWheelHandler(e - prev);
+//         }
+//     }
+//
+//     function actualWheelHandler(e) {
+//         scrolled(e)
+//     }
+//
+// }());
+//
