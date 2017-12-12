@@ -1,5 +1,12 @@
 //TODO es wird alles in der history gespeichert das soll so nicht sein....
+//TODO nach oben scrollen switch animation
+//TODO
+
 var rescale = 700; // width rescale < mobile > desktop view
+
+var reversed = {
+    rev: 'up'
+};
 
 var viewPort = {
     mobile: (rescale > Math.max(document.documentElement.clientWidth, window.innerWidth || 0))
@@ -86,10 +93,83 @@ var text = {
 var langWatch = {
     watch: {
         '$route': function () {
+            console.log('asdfsdfadsfga')
             this.lang = this.$route.query.lang;
         }
     }
 };
+
+var revDo = {
+    props: {
+        transition: {
+            default: 'up',
+            type: String
+        },
+        addPosition: {
+            default: 'left',
+            type: String
+        }
+    },
+    methods: {
+        changeTransition: function () {
+            console.log('right Function', reversed.rev)
+            if (reversed.rev == 'up') {
+                console.log('right: down')
+                this.transition = 'down'
+            } else if (reversed.rev == 'down') {
+                console.log('right: up')
+                this.transition = 'up'
+            } else {
+                this.transition = 'down'
+            }
+        }
+    },
+    beforeRouteUpdate: function (to, from, next) {
+        this.changeTransition()
+    }
+    // watch: {
+    //     '$route': function () {
+    //         console.log('hae??')
+    //         this.lang = this.$route.query.lang;
+    //         this.changeTransition();
+    //     }
+    // }
+}
+var revUp = {
+    props: {
+        transition: {
+            default: 'up',
+            type: String
+        },
+        addPosition: {
+            default: 'right',
+            type: String
+        }
+    },
+    methods: {
+        changeTransition: function () {
+            console.log('left Function', reversed.rev)
+            if (reversed.rev == 'up') {
+                console.log('left: up')
+                this.transition = 'up'
+            } else if (reversed.rev == 'down') {
+                console.log('left: down')
+                this.transition = 'down'
+            } else {
+                this.transition = 'up'
+            }
+        }
+    },
+    beforeRouteUpdate: function (to, from, next) {
+        console.log(to, from, next)
+    }
+    // watch: {
+    //     '$route': function () {
+    //         this.lang = this.$route.query.lang;
+    //         this.changeTransition();
+    //     }
+    // }
+}
 
 var Main = {
     template: '<div class="MainView">' +
@@ -145,6 +225,7 @@ var Nav = {
         },
         watch: {
             '$route': function (to) {
+                console.log('asdf')
                 var temp = to.path.slice(1, -1);
                 for (var i=0; i<this.menu.length; i++) {
                     if(this.menu[i].name == temp) {
@@ -172,10 +253,12 @@ var Nav = {
             scrollFunction: function (x) {
                 if (x < 0) {
                     if (this.current - 1 >= 0) {
+                        reversed.rev = 'down';
                         this.highlight(this.menu[this.current - 1])
                     }
                 } else if (x > 0) {
                     if (this.current + 1 < this.menu.length) {
+                        reversed.rev = 'up';
                         this.highlight(this.menu[this.current + 1])
                     }
                 }
@@ -185,8 +268,8 @@ var Nav = {
 ;
 
 var HomeLeft = {
-    mixins: [langWatch],
-    template: '<transition name="up">' +
+    mixins: [langWatch, revUp],
+    template: '<transition :name="transition">' +
     '<div :class="[{mobile: mobile.mobile}, {left: !mobile.mobile}]" class="window">' +
     '<div class="middle">' +
     '<div class="inner">' +
@@ -203,8 +286,8 @@ var HomeLeft = {
 };
 
 var HomeRight = {
-    mixins: [langWatch],
-    template: '<transition name="down">' +
+    mixins: [langWatch, revDo],
+    template: '<transition :name="transition">' +
     '<div :class="[{mobile: mobile.mobile}, {right: !mobile.mobile}]" class="window">' +
     '<div class="middle backgroundBlack">' +
     '<img src="./assets/content_dome_immersive_media.png"/>' +
@@ -217,8 +300,8 @@ var HomeRight = {
 };
 
 var AboutLeft = {
-    mixins: [langWatch],
-    template: '<transition name="up">' +
+    mixins: [langWatch, revUp],
+    template: '<transition :name="transition">' +
     '<div :class="[{mobile: mobile.mobile}, {left: !mobile.mobile}]" class="window">' +
     '<div class="middle">' +
     '<div class="inner">' +
@@ -234,8 +317,8 @@ var AboutLeft = {
 };
 
 var AboutRight = {
-    mixins: [langWatch],
-    template: '<transition name="down">' +
+    mixins: [langWatch, revDo],
+    template: '<transition :name="transition">' +
     '<div :class="[{mobile: mobile.mobile}, {right: !mobile.mobile}]" class="window">' +
     '<div class="middle backgroundBlack">' +
     '<div class="inner">' +
@@ -251,8 +334,8 @@ var AboutRight = {
 };
 
 var ServicesLeft = {
-    mixins: [langWatch],
-    template: '<transition name="up">' +
+    mixins: [langWatch, revUp],
+    template: '<transition :name="transition">' +
     '<div :class="[{mobile: mobile.mobile}, {left: !mobile.mobile}]" class="window">' +
     '<div class="middle backgroundBlack">' +
     '<img src="./assets/content_dome_immersive_media.png"/>' +
@@ -265,8 +348,8 @@ var ServicesLeft = {
 };
 
 var ServicesRight = {
-    mixins: [langWatch],
-    template: '<transition name="down">' +
+    mixins: [langWatch, revDo],
+    template: '<transition :name="transition">' +
     '<div :class="[{mobile: mobile.mobile}, {right: !mobile.mobile}]" class="window">' +
     '<div class="middle">' +
     '<div class="inner">' +
@@ -283,8 +366,8 @@ var ServicesRight = {
 };
 
 var ContactLeft = {
-    mixins: [langWatch],
-    template: '<transition name="up">' +
+    mixins: [langWatch, revUp],
+    template: '<transition :name="transition">' +
     '<div :class="[{mobile: mobile.mobile}, {left: !mobile.mobile}]" class="window">' +
     '<div class="middle">' +
     '<div class="inner">' +
@@ -307,8 +390,8 @@ var ContactLeft = {
 };
 
 var ContactRight = {
-    mixins: [langWatch],
-    template: '<transition name="down">' +
+    mixins: [langWatch, revDo],
+    template: '<transition :name="transition">' +
     '<div :class="[{mobile: mobile.mobile}, {right: !mobile.mobile}]" class="window">' +
     '<div class="middle">' +
     '<div class="inner">' +
@@ -429,8 +512,6 @@ var app = new Vue({
             resizeTimeout = setTimeout(function () {
                 resizeTimeout = null;
                 actualResizeHandler();
-
-                // The actualResizeHandler will execute at a rate of 15fps
             }, 66);
         }
     }
