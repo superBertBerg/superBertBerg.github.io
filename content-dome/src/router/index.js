@@ -5,8 +5,8 @@ import Router from 'vue-router'
 import MainView from '@/views/Main'
 import ContactLeftView from '@/views/ContactLeft'
 import ContactRightView from '@/views/ContactRight'
-var HomeLeftView = ContactLeftView
-var HomeRightView = ContactLeftView
+import HomeLeftView from '@/views/HomeLeft'
+import HomeRightView from '@/views/HomeRight'
 var ServicesRightView = ContactLeftView
 var ServicesLeftView = ContactLeftView
 var AboutRightView = ContactLeftView
