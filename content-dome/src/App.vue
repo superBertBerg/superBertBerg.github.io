@@ -2,17 +2,21 @@
   <div id="app">
     <router-view name="main"></router-view>
 
-    <nav-view v-if="!viewport" ref="nav"/>
+    <nav-view v-show="!viewport && $route.path != '/'" ref="nav"/>
 
     <div class="mainWindow">
-      <router-view name="homeLeft"></router-view>
-      <router-view name="homeRight"></router-view>
-      <router-view name="aboutLeft"></router-view>
-      <router-view name="aboutRight"></router-view>
-      <router-view name="servicesLeft"></router-view>
-      <router-view name="servicesRight"></router-view>
-      <router-view name="contactLeft"></router-view>
-      <router-view name="contactRight"></router-view>
+      <transition :name="transitionLeft">
+        <router-view name="homeLeft"></router-view>
+        <router-view name="aboutLeft"></router-view>
+        <router-view name="servicesLeft"></router-view>
+        <router-view name="contactLeft"></router-view>
+      </transition>
+      <transition :name="transitionRight">
+        <router-view name="homeRight"></router-view>
+        <router-view name="aboutRight"></router-view>
+        <router-view name="servicesRight"></router-view>
+        <router-view name="contactRight"></router-view>
+      </transition>
     </div>
   </div>
 </template>
@@ -29,6 +33,7 @@ export default {
   computed: {
     ...mapGetters({
       viewport: 'viewport',
+      initializeMenu: 'initializeMenu',
       lang: 'lang'
     })
   },
@@ -51,6 +56,8 @@ export default {
   },
   data () {
     return {
+      transitionLeft: 'down',
+      transitionRight: 'up',
       wheelTimeout: null,
       resizeTimeout: null,
       tstart: 0,
@@ -69,7 +76,16 @@ export default {
   methods: {
     scrolled (move) {
       if (!this.viewport) {
-        this.$refs.nav.scrollFunction(move)
+        if (move < 0) {
+          this.transitionRight = "up"
+          this.transitionLeft = "down"
+          console.log(this.$refs.nav)
+          this.$refs.nav.highlight(this.initializeMenu[this.$refs.nav.current - 1])
+        } else {
+          this.transitionRight = "down"
+          this.transitionLeft = "up"
+          this.$refs.nav.highlight(this.initializeMenu[this.$refs.nav.current + 1])
+        }
       }
     },
     wheelThrottler (e) {

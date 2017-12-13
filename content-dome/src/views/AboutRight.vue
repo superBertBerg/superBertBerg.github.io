@@ -1,5 +1,4 @@
 <template>
-  <transition :name="transition">
     <div :class="[{mobile: viewport}, {right: !viewport}]" class="window">
       <div class="middle backgroundBlack">
         <div class="inner">
@@ -8,15 +7,12 @@
         </div>
       </div>
     </div>
-  </transition>
 </template>
 
 <script>
-import { revDo } from '@/mixins'
 import { mapGetters } from 'vuex'
 
 export default {
-  mixins: [revDo],
   computed: {
     ...mapGetters({
       text: 'text',

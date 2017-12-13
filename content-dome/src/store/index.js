@@ -25,7 +25,6 @@ const store = new Vuex.Store({
         id: 3
       }
     ],
-    reversed: 'up',
     viewport: false,
     text: {
       homeLeft: {
@@ -91,9 +90,6 @@ const store = new Vuex.Store({
     }
   },
   actions: {
-    SET_REVERSED: ({ commit }, reversedState) => {
-      return new Promise((resolve, reject) => resolve(commit('SET_REVERSED', { reversedState })))
-    },
     SET_VIEWPORT: ({ commit }, viewport) => {
       return new Promise((resolve, reject) => resolve(commit('SET_VIEWPORT', { viewport })))
     },
@@ -102,9 +98,6 @@ const store = new Vuex.Store({
     }
   },
   mutations: {
-    SET_REVERSED: (state, { reversedState }) => {
-      state.reversed = reversedState
-    },
     SET_VIEWPORT: (state, { viewport }) => {
       state.viewport = viewport
     },
@@ -115,9 +108,6 @@ const store = new Vuex.Store({
   getters: {
     initializeMenu (state) {
       return state.initializeMenu
-    },
-    reversed (state) {
-      return state.reversed
     },
     viewport (state) {
       return state.viewport

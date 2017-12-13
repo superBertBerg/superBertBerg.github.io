@@ -24,8 +24,7 @@ export default {
     }
     return {
       current: current,
-      active: false,
-      test: 'falsearst'
+      active: false
     }
   },
   created () {
@@ -64,17 +63,6 @@ export default {
       setTimeout(function () {
         path.hover = false
       }, 1000)
-    },
-    scrollFunction (x) {
-      if (x < 0) {
-        if (this.current - 1 >= 0) {
-          this.$store.dispatch('SET_REVERSED', 'down').then(() => this.highlight(this.initializeMenu[this.current - 1]))
-        }
-      } else if (x > 0) {
-        if (this.current + 1 < this.initializeMenu.length) {
-          this.$store.dispatch('SET_REVERSED', 'up').then(() => this.highlight(this.initializeMenu[this.current + 1]))
-        }
-      }
     }
   }
 }
