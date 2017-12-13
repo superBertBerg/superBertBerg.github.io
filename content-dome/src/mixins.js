@@ -38,9 +38,9 @@ export const revDo = {
   },
   watch: {
     '$route': function () {
-      console.log('hae??')
       this.lang = this.$route.query.lang
       this.changeTransition()
+      console.log('down', this.transition)
     }
   }
 }
@@ -77,6 +77,7 @@ export const revUp = {
     '$route': function () {
       this.lang = this.$route.query.lang
       this.changeTransition()
+      console.log('up', this.transition)
     }
   }
 }

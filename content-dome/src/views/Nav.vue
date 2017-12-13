@@ -41,7 +41,7 @@ export default {
   },
   watch: {
     $route (to) {
-      if(this.initializeMenu) {
+      if (this.initializeMenu) {
         var temp = to.path.slice(1, -1)
         for (var i = 0; i < this.initializeMenu.length; i++) {
           if (this.initializeMenu[i].name === temp) {
