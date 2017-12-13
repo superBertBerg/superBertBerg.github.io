@@ -13,11 +13,11 @@
 </template>
 
 <script>
-import { revUp } from '@/mixins'
+import { revDo } from '@/mixins'
 import { mapGetters } from 'vuex'
 
 export default {
-  mixins: [revUp],
+  mixins: [revDo],
   computed: {
     ...mapGetters({
       text: 'text',

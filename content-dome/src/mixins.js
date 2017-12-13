@@ -1,4 +1,4 @@
-export const revDo = {
+export let revDo = {
   props: {
     transition: {
       default: 'up',
@@ -23,21 +23,18 @@ export const revDo = {
       }
     }
   },
-  beforeRouteUpdate: function (to, from, next) {
-    this.changeTransition()
-  },
   watch: {
     '$route': function () {
-      this.changeTransition()
       console.log('down', this.transition)
+      this.changeTransition()
     }
   }
 }
 
-export const revUp = {
+export let revUp = {
   props: {
     transition: {
-      default: 'up',
+      default: 'down',
       type: String
     },
     addPosition: {
@@ -59,13 +56,10 @@ export const revUp = {
       }
     }
   },
-  beforeRouteUpdate: function (to, from, next) {
-    console.log(to, from, next)
-  },
   watch: {
     '$route': function () {
-      this.changeTransition()
       console.log('up', this.transition)
+      this.changeTransition()
     }
   }
 }
