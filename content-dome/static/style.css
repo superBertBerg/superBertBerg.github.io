@@ -414,3 +414,75 @@ span {
         padding-bottom: 20px;
     }
 }
+
+
+
+
+
+
+
+
+
+@media screen and (max-width: 700px) and (min-width: 480px) and (max-height: 450px) and (min-width: 300px) {
+  .tBig.text {
+    font-size: 27px;
+  }
+
+  .tMiddle.text {
+    font-size: 20px;
+  }
+
+  .tSmall.text {
+    font-size: 15px;
+  }
+}
+
+.inner {
+  position: relative;
+}
+
+.middle.mob {
+  text-align: left;
+}
+.tab.tMiddle.text.mob {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  margin-left: 55%;
+}
+
+.maxSize.mob {
+  max-width: 50%;
+}
+
+
+
+.mobl {
+  position: absolute;
+  width: 45%;
+  top: 50%;
+  transform: translateY(-50%);
+}
+.mobr {
+  position: absolute;
+  margin-left: 55%;
+  width: 45%;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.noPadding {
+  padding: 0;
+}
+
+.padding {
+  padding-top: 40px;
+}
+
+.paddingHalf {
+  padding-top: 20px;
+}
+
+.mob.inner {
+  height: 80%;
+}

@@ -1,9 +1,9 @@
 <template>
     <div :class="[{mobile: viewport}, {left: !viewport}]" class="window">
-      <div class="middle">
+      <div :class="{mob: viewlandscape}" class="middle">
         <div class="inner">
-          <p class="tab tMiddle text">{{ myText[lang] }}</p>
-          <img class="maxSize" src="../assets/tabaluga.png"/>
+          <p :class="{mob: viewlandscape}" class="tab tMiddle text">{{ myText[lang] }}</p>
+          <img :class="{mob: viewlandscape}" class="maxSize" src="../assets/tabaluga.png"/>
         </div>
       </div>
     </div>
@@ -17,7 +17,8 @@ export default {
     ...mapGetters({
       text: 'text',
       lang: 'lang',
-      viewport: 'viewport'
+      viewport: 'viewport',
+      viewlandscape: 'viewlandscape'
     }),
     myText () { return this.text.aboutLeft }
   }

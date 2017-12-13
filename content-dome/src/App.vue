@@ -5,18 +5,30 @@
     <nav-view v-show="!viewport && $route.path != '/'" ref="nav"/>
 
     <div class="mainWindow">
-      <transition :name="transitionLeft">
-        <router-view name="homeLeft"></router-view>
-        <router-view name="aboutLeft"></router-view>
-        <router-view name="servicesLeft"></router-view>
-        <router-view name="contactLeft"></router-view>
-      </transition>
-      <transition :name="transitionRight">
-        <router-view name="homeRight"></router-view>
-        <router-view name="aboutRight"></router-view>
-        <router-view name="servicesRight"></router-view>
-        <router-view name="contactRight"></router-view>
-      </transition>
+      <transition-group :name="transitionLeft">
+        <router-view name="homeLeft" v-bind:key="pseudoKey[0]"></router-view>
+      </transition-group>
+      <transition-group :name="transitionRight">
+        <router-view name="homeRight" v-bind:key="pseudoKey[4]"></router-view>
+      </transition-group>
+      <transition-group :name="transitionLeft">
+        <router-view name="aboutLeft" v-bind:key="pseudoKey[5]"></router-view>
+      </transition-group>
+      <transition-group :name="transitionRight">
+        <router-view name="aboutRight" v-bind:key="pseudoKey[5]"></router-view>
+      </transition-group>
+      <transition-group :name="transitionRight">
+        <router-view name="servicesRight" v-bind:key="pseudoKey[6]"></router-view>
+      </transition-group>
+      <transition-group :name="transitionLeft">
+        <router-view name="servicesLeft" v-bind:key="pseudoKey[6]"></router-view>
+      </transition-group>
+      <transition-group :name="transitionLeft">
+        <router-view name="contactLeft" v-bind:key="pseudoKey[7]"></router-view>
+      </transition-group>
+      <transition-group :name="transitionRight">
+        <router-view name="contactRight" v-bind:key="pseudoKey[7]"></router-view>
+      </transition-group>
     </div>
   </div>
 </template>
@@ -33,6 +45,7 @@ export default {
   computed: {
     ...mapGetters({
       viewport: 'viewport',
+      viewlandscape: 'viewlandscape',
       initializeMenu: 'initializeMenu',
       lang: 'lang'
     })
@@ -44,13 +57,10 @@ export default {
       }
     },
     viewport () {
-      if (this.$route.path !== '/') {
-        if (this.viewport) {
-          this.$router.replace({path: '/mobile/', query: {lang: this.lang}})
-        } else {
-          this.$router.replace({path: '/home/', query: {lang: this.lang}})
-        }
-      }
+      this.viewportChange()
+    },
+    viewlandscape () {
+      this.viewportChange()
     }
   },
   data () {
@@ -61,7 +71,17 @@ export default {
       resizeTimeout: null,
       tstart: 0,
       tend: 0,
-      rescale: 700
+      rescale: 700,
+      pseudoKey: [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7
+      ]
     }
   },
   mounted () {
@@ -71,19 +91,24 @@ export default {
     }, false)
     window.addEventListener('resize', this.resizeThrottler, false)
     this.resize()
+    this.viewportChange()
   },
   methods: {
     scrolled (move) {
       if (!this.viewport) {
+        let leng = this.$refs.nav.current
         if (move < 0) {
           this.transitionRight = 'up'
           this.transitionLeft = 'down'
-          console.log(this.$refs.nav)
-          this.$refs.nav.highlight(this.initializeMenu[this.$refs.nav.current - 1])
+          if (leng - 1 >= 0) {
+            this.$refs.nav.highlight(this.initializeMenu[this.$refs.nav.current - 1])
+          }
         } else {
           this.transitionRight = 'down'
           this.transitionLeft = 'up'
-          this.$refs.nav.highlight(this.initializeMenu[this.$refs.nav.current + 1])
+          if (leng + 1 < this.initializeMenu.length) {
+            this.$refs.nav.highlight(this.initializeMenu[this.$refs.nav.current + 1])
+          }
         }
       }
     },
@@ -104,19 +129,21 @@ export default {
     },
     resize () {
       let retVal = false
+      let w = Math.max(document.documentElement.clientWidth, window.innerWidth || 0)
+      let h = Math.max(document.documentElement.clientHeight, window.innerHeight || 0)
 
-      if (this.rescale > Math.max(document.documentElement.clientWidth, window.innerWidth || 0)) {
+      if (this.rescale > w) {
         this.$store.dispatch('SET_VIEWPORT', true)
-
-        this.$el.style.overflow = 'auto'
-        this.$el.style['overflow-x'] = 'hidden'
-
+        this.$store.dispatch('SET_VIEWLANDSCAPE', false)
+        if (w >= 480 && h > 300 && h < 450) {
+          this.$store.dispatch('SET_VIEWLANDSCAPE', true)
+        }
         this.$el.removeEventListener('touchmove', this.stopIt)
         this.$el.removeEventListener('touchstart', () => {})
         this.$el.removeEventListener('touchend', () => {})
       } else {
+        this.$store.dispatch('SET_VIEWLANDSCAPE', false)
         this.$store.dispatch('SET_VIEWPORT', false)
-        this.$el.style.overflow = 'hidden'
         this.$el.addEventListener('touchmove', this.stopIt, {passive: false})
         this.$el.addEventListener('touchstart', this.startTouch)
         this.$el.addEventListener('touchend', this.endTouch)
@@ -137,6 +164,20 @@ export default {
     touchThrottler () {
       if (this.tstart - this.tend !== 0) {
         this.scrolled(this.tstart - this.tend)
+      }
+    },
+    viewportChange () {
+      if (this.$route.path !== '/') {
+        console.log(this.viewlandscape)
+        let body = document.body
+        if (this.viewport) {
+          body.style.overflow = 'auto'
+          body.style['overflow-x'] = 'hidden'
+          this.$router.replace({path: '/mobile/', query: {lang: this.lang}})
+        } else {
+          body.style.overflow = 'hidden'
+          this.$router.replace({path: '/home/', query: {lang: this.lang}})
+        }
       }
     }
   }
