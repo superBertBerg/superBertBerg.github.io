@@ -28,7 +28,8 @@ export default {
   },
   computed: {
     ...mapGetters({
-      viewport: 'viewport'
+      viewport: 'viewport',
+      lang: 'lang'
     })
   },
   watch: {
@@ -36,16 +37,34 @@ export default {
       if (this.$route.query.lang === 'en' || this.$route.query.lang === 'de') {
         this.$store.dispatch('SET_LANG', this.$route.query.lang)
       }
+    },
+    viewport () {
+      console.log("blalbla")
+      if ('/' != this.$route.path) {
+        if (this.viewport) {
+          this.$router.replace({path: '/mobile/', query: {lang: this.lang}})
+        } else {
+          this.$router.replace({path: '/home/', query: {lang: this.lang}})
+        }
+      }
     }
   },
   data () {
-    return { wheelTimeout: null }
+    return {
+      wheelTimeout: null,
+      resizeTimeout: null,
+      tstart: 0,
+      tend: 0,
+      rescale: 700
+    }
   },
   mounted () {
     window.addEventListener('wheel', e => {
       this.wheelThrottler(e)
       return false
     }, false)
+    window.addEventListener('resize', this.resizeThrottler, false)
+    this.resize()
   },
   methods: {
     scrolled (move) {
@@ -57,6 +76,52 @@ export default {
       if (!this.wheelTimeout) {
         this.wheelTimeout = setTimeout(() => { this.wheelTimeout = null }, 1000)
         this.scrolled(e.deltaY)
+      }
+    },
+    resizeThrottler () {
+      // ignore resize events as long as an actualResizeHandler execution is in the queue
+      if (!this.resizeTimeout) {
+        this.resizeTimeout = setTimeout(() => {
+          this.resizeTimeout = null
+          this.resize()
+        }, 66)
+      }
+    },
+    resize () {
+      let retVal = false
+
+      if (this.rescale > Math.max(document.documentElement.clientWidth, window.innerWidth || 0)) {
+        this.$store.dispatch('SET_VIEWPORT', true)
+
+        this.$el.style.overflow = 'auto'
+        this.$el.style['overflow-x'] = 'hidden'
+
+        this.$el.removeEventListener('touchmove', this.stopIt)
+        this.$el.removeEventListener('touchstart', () => {})
+        this.$el.removeEventListener('touchend', () => {})
+      } else {
+        this.$store.dispatch('SET_VIEWPORT', false)
+        this.$el.style.overflow = 'hidden'
+        this.$el.addEventListener('touchmove', this.stopIt, {passive: false})
+        this.$el.addEventListener('touchstart', this.startTouch)
+        this.$el.addEventListener('touchend', this.endTouch)
+      }
+      return retVal
+    },
+    stopIt (e) {
+      e.preventDefault()
+      e.stopPropagation()
+    },
+    startTouch (e) {
+      this.tstart = e.changedTouches[0].clientY
+    },
+    endTouch (e) {
+      this.tend = e.changedTouches[0].clientY
+      this.touchThrottler()
+    },
+    touchThrottler () {
+      if (this.tstart - this.tend !== 0) {
+        this.scrolled(this.tstart - this.tend)
       }
     }
   }
