@@ -44,8 +44,7 @@ export default {
       }
     },
     viewport () {
-      console.log("blalbla")
-      if ('/' != this.$route.path) {
+      if (this.$route.path !== '/') {
         if (this.viewport) {
           this.$router.replace({path: '/mobile/', query: {lang: this.lang}})
         } else {
@@ -77,13 +76,13 @@ export default {
     scrolled (move) {
       if (!this.viewport) {
         if (move < 0) {
-          this.transitionRight = "up"
-          this.transitionLeft = "down"
+          this.transitionRight = 'up'
+          this.transitionLeft = 'down'
           console.log(this.$refs.nav)
           this.$refs.nav.highlight(this.initializeMenu[this.$refs.nav.current - 1])
         } else {
-          this.transitionRight = "down"
-          this.transitionLeft = "up"
+          this.transitionRight = 'down'
+          this.transitionLeft = 'up'
           this.$refs.nav.highlight(this.initializeMenu[this.$refs.nav.current + 1])
         }
       }
