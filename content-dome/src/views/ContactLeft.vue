@@ -29,12 +29,8 @@ export default {
       text: 'text',
       viewport: 'viewport'
     }),
-    myText () { return this.text.contactLeft }
-  },
-  data () {
-    return {
-      lang: this.$route.query.lang
-    }
+    myText () { return this.text.contactLeft },
+    lang () { return this.$route.query.lang }
   }
 }
 </script>
