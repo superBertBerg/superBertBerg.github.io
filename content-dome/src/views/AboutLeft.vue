@@ -3,7 +3,7 @@
     <div :class="[{mobile: viewport}, {left: !viewport}]" class="window">
       <div class="middle">
         <div class="inner">
-          <p class="tab tMiddle text">{{ text[lang] }}</p>
+          <p class="tab tMiddle text">{{ myText[lang] }}</p>
           <img class="maxSize" src="../assets/tabaluga.png"/>
         </div>
       </div>
