@@ -33,25 +33,22 @@ export default {
       this.$set(slot, 'hover', false)
     }
   },
+  mounted () {
+    if (this.initializeMenu) {
+      var temp = this.$route.path.slice(1, -1)
+      for (var i = 0; i < this.initializeMenu.length; i++) {
+        if (this.initializeMenu[i].name === temp) {
+          this.current = this.initializeMenu[i].id
+          this.hoverBlink(this.initializeMenu[i])
+        }
+      }
+    }
+  },
   computed: {
     ...mapGetters({
       initializeMenu: 'initializeMenu',
       reversed: 'reversed'
     })
-  },
-  watch: {
-    $route (to) {
-      if (this.initializeMenu) {
-        var temp = to.path.slice(1, -1)
-        for (var i = 0; i < this.initializeMenu.length; i++) {
-          if (this.initializeMenu[i].name === temp) {
-            this.current = this.initializeMenu[i].id
-            this.hoverBlink(this.initializeMenu[i])
-          }
-        }
-      }
-      console.log('asdf')
-    }
   },
   methods: {
     highlight (x) {
