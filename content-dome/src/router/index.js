@@ -7,10 +7,10 @@ import ContactLeftView from '@/views/ContactLeft'
 import ContactRightView from '@/views/ContactRight'
 import HomeLeftView from '@/views/HomeLeft'
 import HomeRightView from '@/views/HomeRight'
-var ServicesRightView = ContactLeftView
-var ServicesLeftView = ContactLeftView
 import AboutRightView from '@/views/AboutRight'
 import AboutLeftView from '@/views/AboutLeft'
+import ServicesRightView from '@/views/ServicesRight'
+import ServicesLeftView from '@/views/ServicesLeft'
 
 Vue.use(Router)
 

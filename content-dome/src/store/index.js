@@ -6,6 +6,7 @@ Vue.use(Vuex)
 
 const store = new Vuex.Store({
   state: {
+    lang: 'en',
     initializeMenu: [
       {
         name: 'home',
@@ -95,6 +96,9 @@ const store = new Vuex.Store({
     },
     SET_VIEWPORT: ({ commit }, viewport) => {
       return new Promise((resolve, reject) => resolve(commit('SET_VIEWPORT', { viewport })))
+    },
+    SET_LANG: ({ commit }, lang) => {
+      return new Promise((resolve, reject) => resolve(commit('SET_LANG', { lang })))
     }
   },
   mutations: {
@@ -103,6 +107,9 @@ const store = new Vuex.Store({
     },
     SET_VIEWPORT: (state, { viewport }) => {
       state.viewport = viewport
+    },
+    SET_LANG: (state, { lang }) => {
+      state.lang = lang
     }
   },
   getters: {
@@ -117,6 +124,9 @@ const store = new Vuex.Store({
     },
     text (state) {
       return state.text
+    },
+    lang (state) {
+      return state.lang
     }
   }
 })

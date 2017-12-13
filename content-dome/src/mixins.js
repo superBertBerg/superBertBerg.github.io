@@ -1,13 +1,3 @@
-
-export const langWatch = {
-  watch: {
-    '$route': function () {
-      console.log('asdfsdfadsfga')
-      this.lang = this.$route.query.lang
-    }
-  }
-}
-
 export const revDo = {
   props: {
     transition: {
@@ -38,7 +28,6 @@ export const revDo = {
   },
   watch: {
     '$route': function () {
-      this.lang = this.$route.query.lang
       this.changeTransition()
       console.log('down', this.transition)
     }
@@ -75,7 +64,6 @@ export const revUp = {
   },
   watch: {
     '$route': function () {
-      this.lang = this.$route.query.lang
       this.changeTransition()
       console.log('up', this.transition)
     }

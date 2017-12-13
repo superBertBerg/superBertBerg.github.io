@@ -12,18 +12,18 @@
 </template>
 
 <script>
-import { langWatch, revUp } from '@/mixins'
+import { revUp } from '@/mixins'
 import { mapGetters } from 'vuex'
 
 export default {
-  mixins: [langWatch, revUp],
+  mixins: [revUp],
   computed: {
     ...mapGetters({
       text: 'text',
+      lang: 'lang',
       viewport: 'viewport'
     }),
-    myText () { return this.text.aboutRight },
-    lang () { return this.$route.query.lang }
+    myText () { return this.text.aboutRight }
   }
 }
 </script>

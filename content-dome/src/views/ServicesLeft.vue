@@ -1,5 +1,5 @@
 <template>
-  <transition :name="direction">
+  <transition :name="transition">
   <div :class="[{mobile: viewport}, {left: !viewport}]" class="window">
     <div class="middle backgroundBlack">
       <img src="../assets/content_dome_immersive_media.png"/>
@@ -9,16 +9,16 @@
 </template>
 
 <script>
-import { langWatch, revUp } from '@/mixins'
+import { revUp } from '@/mixins'
 import { mapGetters } from 'vuex'
 
 export default {
-  mixins: [langWatch, revUp],
+  mixins: [revUp],
   computed: {
     ...mapGetters({
-      viewport: 'viewport'
-    }),
-    lang () { return this.$route.query.lang }
+      viewport: 'viewport',
+      lang: 'lang'
+    })
   }
 }
 </script>

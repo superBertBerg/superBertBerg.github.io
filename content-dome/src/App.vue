@@ -31,6 +31,13 @@ export default {
       viewport: 'viewport'
     })
   },
+  watch: {
+    $route () {
+      if (this.$route.query.lang === 'en' || this.$route.query.lang === 'de') {
+        this.$store.dispatch('SET_LANG', this.$route.query.lang)
+      }
+    }
+  },
   data () {
     return { wheelTimeout: null }
   },

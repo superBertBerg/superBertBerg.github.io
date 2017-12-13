@@ -1,5 +1,5 @@
 <template>
-  <transition :name="direction">
+  <transition :name="transition">
   <div :class="[{mobile: viewport}, {right: !viewport}]" class="window">
     <div class="middle">
       <div class="inner">
@@ -13,18 +13,18 @@
 </template>
 
 <script>
-import { langWatch, revUp } from '@/mixins'
+import { revUp } from '@/mixins'
 import { mapGetters } from 'vuex'
 
 export default {
-  mixins: [langWatch, revUp],
+  mixins: [revUp],
   computed: {
     ...mapGetters({
       text: 'text',
+      lang: 'lang',
       viewport: 'viewport'
     }),
-    myText () { return this.text.servicesLeft },
-    lang () { return this.$route.query.lang }
+    myText () { return this.text.servicesRight }
   }
 }
 </script>
