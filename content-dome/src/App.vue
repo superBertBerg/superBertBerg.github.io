@@ -85,12 +85,11 @@ export default {
     }
   },
   mounted () {
-    // console.log(window.history)
     if (this.$route.query.lang === 'en' || this.$route.query.lang === 'de') {
       this.$store.dispatch('SET_LANG', this.$route.query.lang)
     }
     let body = document.body
-    // console.log(this.$route.query.lang)
+    this.resize()
     if (this.viewport) {
       body.style.overflow = 'auto'
       body.style['overflow-x'] = 'hidden'
@@ -184,7 +183,6 @@ export default {
     },
     viewportChange () {
       if (this.$route.path !== '/') {
-        // console.log(this.viewlandscape)
         let body = document.body
         if (this.viewport) {
           body.style.overflow = 'auto'

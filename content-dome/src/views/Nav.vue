@@ -33,17 +33,7 @@ export default {
     }
   },
   mounted () {
-    if (this.initializeMenu) {
-      console.log(this.$route.path)
-      let temp = this.$route.path.slice(1, -1)
-      for (let i = 0; i < this.initializeMenu.length; i++) {
-        if (this.initializeMenu[i].name === temp) {
-          this.current = this.initializeMenu[i].id
-          this.highlight(this.initializeMenu[i])
-          this.hoverBlink(this.initializeMenu[i])
-        }
-      }
-    }
+    this.navUpdate()
   },
   computed: {
     ...mapGetters({
@@ -54,7 +44,6 @@ export default {
   },
   methods: {
     highlight (x) {
-      console.log('haha', x)
       this.$router.push({
         path: '/' + x.name + '/',
         query: {lang: this.$route.query.lang}
@@ -67,6 +56,22 @@ export default {
       setTimeout(function () {
         path.hover = false
       }, 1000)
+    },
+    navUpdate () {
+      if (this.initializeMenu) {
+        let temp = this.$route.path.slice(1, -1)
+        for (let i = 0; i < this.initializeMenu.length; i++) {
+          if (this.initializeMenu[i].name === temp) {
+            this.current = this.initializeMenu[i].id
+            this.hoverBlink(this.initializeMenu[i])
+          }
+        }
+      }
+    }
+  },
+  watch: {
+    $route () {
+      this.navUpdate()
     }
   }
 }
