@@ -309,6 +309,12 @@ span {
 
 
 /*responsive css*/
+@media screen and (max-width: 1000px) {
+  .tBig.text {
+    font-size: 28px;
+  }
+}
+
 @media screen and (max-width: 800px) and (max-height: 600px) {
     .tBig.text {
         font-size: 22px;
@@ -378,6 +384,14 @@ span {
     }
 }
 
+@media screen and (width: 812px) and (height: 375px) {
+  .tBig.text {
+    font-size: 28px;
+  }
+}
+
+
+
 @media screen and (max-width: 450px) and (max-height: 800px) {
     .tBig.text {
         font-size: 27px;
@@ -414,10 +428,6 @@ span {
         padding-bottom: 20px;
     }
 }
-
-
-
-
 
 
 
