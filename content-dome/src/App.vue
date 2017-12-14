@@ -192,10 +192,9 @@ export default {
       }
     },
     addressBar () {
-      if (this.viewlandscape) {
-        window.scrollTo(0, 1);
-      } else {
-        window.scrollTo(0, 0);
+      if (this.$route.path !== '/' && this.viewlandscape) {
+        console.log('hehe')
+        window.scrollTo(0, 1)
       }
     },
     viewportChange () {
