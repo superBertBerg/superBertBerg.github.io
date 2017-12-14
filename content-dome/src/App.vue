@@ -145,7 +145,6 @@ export default {
       let retVal = false
       let w = Math.max(document.documentElement.clientWidth, window.innerWidth || 0)
       let h = Math.max(document.documentElement.clientHeight, window.innerHeight || 0)
-      console.log('i was set again')
       if (this.rescale > w) {
         this.$store.dispatch('SET_VIEWPORT', true)
         this.$store.dispatch('SET_VIEWLANDSCAPE', false)
