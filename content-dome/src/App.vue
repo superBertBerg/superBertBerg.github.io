@@ -105,7 +105,7 @@ export default {
       return false
     }, false)
     this.resize()
-    // this.viewportChange()
+    this.setOverflowAndEvents()
   },
   methods: {
     scrolled (move) {
@@ -179,17 +179,24 @@ export default {
         this.scrolled(this.tstart - this.tend)
       }
     },
+    setOverflowAndEvents () {
+      let body = document.body
+      if (this.viewport) {
+        body.style.overflow = 'auto'
+        body.style['overflow-x'] = 'hidden'
+      } else {
+        body.style.overflow = 'hidden'
+        this.$store.dispatch('SET_TRANSITIONLEFT', null)
+        this.$store.dispatch('SET_TRANSITIONRIGHT', null)
+      }
+    },
     viewportChange () {
       if (this.$route.path !== '/') {
-        let body = document.body
         if (this.viewport) {
-          body.style.overflow = 'auto'
-          body.style['overflow-x'] = 'hidden'
+          this.setOverflowAndEvents()
           this.$router.replace({path: '/mobile/', query: {lang: this.lang}})
         } else {
-          body.style.overflow = 'hidden'
-          this.$store.dispatch('SET_TRANSITIONLEFT', null)
-          this.$store.dispatch('SET_TRANSITIONRIGHT', null)
+          this.setOverflowAndEvents()
           this.$router.replace({path: '/home/', query: {lang: this.lang}})
           this.$refs.nav.current = 0
         }

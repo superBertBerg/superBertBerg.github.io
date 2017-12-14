@@ -27,8 +27,10 @@ export default {
     linkTo (lang) {
       if (this.viewport) {
         this.$router.push({path: '/mobile/', query: {lang: lang}})
+        this.$store.dispatch('SET_VIEWPORT', true)
       } else {
         this.$router.push({path: '/home/', query: {lang: lang}})
+        this.$store.dispatch('SET_VIEWPORT', false)
       }
     }
   }
