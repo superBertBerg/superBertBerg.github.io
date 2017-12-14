@@ -2,7 +2,7 @@
   <transition name="side">
     <div id="navi" class="positionNav">
       <template v-for="item in initializeMenu" >
-        <a @mouseover="item.hover = true" @mouseleave="item.hover = false"><div class="line" :key="item.id" v-bind:class="{ activeLine: item.id===current }" v-on:click="highlight(item)">
+        <a @mouseover="item.hover = true" @mouseleave="item.hover = false"><div class="line" :key="item.id" v-bind:class="{ activeLine: item.id===current }" v-on:click="directNavigation(item)">
             <span><div :class="{navMenuHover: item.hover}" class="hidden">{{ item.name.toUpperCase() }}</div></span>
         </div></a>
       </template>
@@ -39,11 +39,23 @@ export default {
     ...mapGetters({
       initializeMenu: 'initializeMenu',
       reversed: 'reversed',
-      lang: 'lang'
+      lang: 'lang',
+      transitionLeft: 'transitionLeft',
+      transitionRight: 'transitionRight'
     })
   },
   methods: {
     highlight (x) {
+      this.$router.push({
+        path: '/' + x.name + '/',
+        query: {lang: this.$route.query.lang}
+      })
+      this.current = x.id
+      this.hoverBlink(this.initializeMenu[this.current])
+    },
+    directNavigation (x) {
+      this.$store.dispatch('SET_TRANSITIONRIGHT', 'sideright')
+      this.$store.dispatch('SET_TRANSITIONLEFT', 'sideleft')
       this.$router.push({
         path: '/' + x.name + '/',
         query: {lang: this.$route.query.lang}

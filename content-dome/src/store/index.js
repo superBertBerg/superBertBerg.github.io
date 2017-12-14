@@ -27,6 +27,8 @@ const store = new Vuex.Store({
     ],
     viewport: false,
     viewlandscape: false,
+    transitionLeft: 'down',
+    transitionRight: 'up',
     text: {
       homeLeft: {
         de: 'Immersion ist die Überführung in einen Bewusstseinszustand, bei dem sich die Wahrnehmung der eigenen Person in der realen Welt vermindert und gleichzeitig in der virtuellen Welt vergrößert.',
@@ -99,6 +101,12 @@ const store = new Vuex.Store({
     },
     SET_LANG: ({ commit }, lang) => {
       return new Promise((resolve, reject) => resolve(commit('SET_LANG', { lang })))
+    },
+    SET_TRANSITIONLEFT: ({ commit }, transitionLeft) => {
+      return new Promise((resolve, reject) => resolve(commit('SET_TRANSITIONLEFT', { transitionLeft })))
+    },
+    SET_TRANSITIONRIGHT: ({ commit }, transitionRight) => {
+      return new Promise((resolve, reject) => resolve(commit('SET_TRANSITIONRIGHT', { transitionRight })))
     }
   },
   mutations: {
@@ -110,6 +118,12 @@ const store = new Vuex.Store({
     },
     SET_VIEWLANDSCAPE: (state, { viewlandscape }) => {
       state.viewlandscape = viewlandscape
+    },
+    SET_TRANSITIONLEFT: (state, { transitionLeft }) => {
+      state.transitionLeft = transitionLeft
+    },
+    SET_TRANSITIONRIGHT: (state, { transitionRight }) => {
+      state.transitionRight = transitionRight
     }
   },
   getters: {
@@ -127,6 +141,12 @@ const store = new Vuex.Store({
     },
     viewlandscape (state) {
       return state.viewlandscape
+    },
+    transitionLeft (state) {
+      return state.transitionLeft
+    },
+    transitionRight (state) {
+      return state.transitionRight
     }
   }
 })

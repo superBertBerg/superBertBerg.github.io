@@ -47,7 +47,9 @@ export default {
       viewport: 'viewport',
       viewlandscape: 'viewlandscape',
       initializeMenu: 'initializeMenu',
-      lang: 'lang'
+      lang: 'lang',
+      transitionLeft: 'transitionLeft',
+      transitionRight: 'transitionRight'
     })
   },
   watch: {
@@ -65,8 +67,6 @@ export default {
   },
   data () {
     return {
-      transitionLeft: 'down',
-      transitionRight: 'up',
       wheelTimeout: null,
       resizeTimeout: null,
       tstart: 0,
@@ -112,14 +112,14 @@ export default {
       if (!this.viewport) {
         let leng = this.$refs.nav.current
         if (move < 0) {
-          this.transitionRight = 'up'
-          this.transitionLeft = 'down'
+          this.$store.dispatch('SET_TRANSITIONRIGHT', 'up')
+          this.$store.dispatch('SET_TRANSITIONLEFT', 'down')
           if (leng - 1 >= 0) {
             this.$refs.nav.highlight(this.initializeMenu[this.$refs.nav.current - 1])
           }
         } else {
-          this.transitionRight = 'down'
-          this.transitionLeft = 'up'
+          this.$store.dispatch('SET_TRANSITIONRIGHT', 'down')
+          this.$store.dispatch('SET_TRANSITIONLEFT', 'up')
           if (leng + 1 < this.initializeMenu.length) {
             this.$refs.nav.highlight(this.initializeMenu[this.$refs.nav.current + 1])
           }
@@ -189,8 +189,8 @@ export default {
           this.$router.replace({path: '/mobile/', query: {lang: this.lang}})
         } else {
           body.style.overflow = 'hidden'
-          this.transitionLeft = null
-          this.transitionRight = null
+          this.$store.dispatch('SET_TRANSITIONLEFT', null)
+          this.$store.dispatch('SET_TRANSITIONRIGHT', null)
           this.$router.replace({path: '/home/', query: {lang: this.lang}})
           this.$refs.nav.current = 0
         }
