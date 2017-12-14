@@ -309,23 +309,46 @@ span {
 
 
 /*responsive css*/
-@media screen and (max-width: 1000px) {
+@media screen and (max-width: 1200px) {
   .tBig.text {
     font-size: 28px;
   }
+  .tSmall.text {
+    font-size: 15px;
+  }
+  .tMiddle.text {
+    font-size: 22px;
+  }
 }
 
-@media screen and (max-width: 800px) and (max-height: 600px) {
+@media screen and (max-width: 1000px) {
+  .tBig.text {
+    font-size: 26px;
+  }
+}
+
+@media screen and (max-width: 900px) {
+  .tBig.text {
+    font-size: 24px;
+  }
+  .tMiddle.text {
+    font-size: 20px;
+  }
+}
+
+
+
+@media screen and (max-width: 850px) and (max-height: 600px) {
     .tBig.text {
         font-size: 22px;
     }
 
     .tMiddle.text {
-        font-size: 17px;
+        font-size: 16px;
     }
 
     .tSmall.text {
-        font-size: 13px;
+        font-size: 12px;
     }
 
     .tSpaceB {
@@ -363,15 +386,15 @@ span {
 
     .tBig.text {
         line-height: 145%;
-        font-size: 36px;
+        font-size: 30px;
     }
 
     .tMiddle.text {
-        font-size: 24px;
+        font-size: 22px;
     }
 
     .tSmall.text {
-        font-size: 17px;
+        font-size: 16px;
     }
 
     .tSpaceB {
@@ -383,14 +406,6 @@ span {
         padding-bottom: 30px;
     }
 }
-
-@media screen and (width: 812px) and (height: 375px) {
-  .tBig.text {
-    font-size: 28px;
-  }
-}
-
-
 
 @media screen and (max-width: 450px) and (max-height: 800px) {
     .tBig.text {
@@ -446,6 +461,8 @@ span {
     font-size: 15px;
   }
 }
+
+/* Small landscape responsive css*/
 
 .inner {
   position: relative;
