@@ -194,7 +194,9 @@ export default {
     addressBar () {
       if (this.$route.path !== '/' && this.viewlandscape) {
         console.log('hehe')
-        window.scrollTo(0, 100)
+        setTimeout(function () {
+          window.scrollTo(0, 100)
+        }, 10)
       }
     },
     viewportChange () {
