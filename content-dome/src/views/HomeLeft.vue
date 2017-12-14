@@ -3,11 +3,10 @@
       <div class="middle">
         <div class="inner">
           <p class="tab tBig text">{{ myText[lang].toUpperCase() }}</p>
-          <p class="tMiddle text" v-show="lang == 'de'">{{text.de1}}</p>
+          <p class="tMiddle text" v-show="lang == 'de'">{{myText[lang+'1']}}</p>
         </div>
       </div>
     </div>
-  </div>
 </template>
 
 <script>

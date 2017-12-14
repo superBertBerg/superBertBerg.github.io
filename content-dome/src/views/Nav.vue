@@ -16,7 +16,7 @@ import { mapGetters } from 'vuex'
 
 export default {
   data () {
-    var current = 0
+    let current = 0
     for (var subMenus in this.initializeMenu) {
       if (this.$route.path.indexOf(this.initializeMenu[subMenus].name) !== -1) {
         current = this.initializeMenu[subMenus].id
@@ -34,10 +34,12 @@ export default {
   },
   mounted () {
     if (this.initializeMenu) {
-      var temp = this.$route.path.slice(1, -1)
-      for (var i = 0; i < this.initializeMenu.length; i++) {
+      console.log(this.$route.path)
+      let temp = this.$route.path.slice(1, -1)
+      for (let i = 0; i < this.initializeMenu.length; i++) {
         if (this.initializeMenu[i].name === temp) {
           this.current = this.initializeMenu[i].id
+          this.highlight(this.initializeMenu[i])
           this.hoverBlink(this.initializeMenu[i])
         }
       }
@@ -46,11 +48,13 @@ export default {
   computed: {
     ...mapGetters({
       initializeMenu: 'initializeMenu',
-      reversed: 'reversed'
+      reversed: 'reversed',
+      lang: 'lang'
     })
   },
   methods: {
     highlight (x) {
+      console.log('haha', x)
       this.$router.push({
         path: '/' + x.name + '/',
         query: {lang: this.$route.query.lang}

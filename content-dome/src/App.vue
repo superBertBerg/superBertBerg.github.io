@@ -85,13 +85,29 @@ export default {
     }
   },
   mounted () {
+    // console.log(window.history)
+    if (this.$route.query.lang === 'en' || this.$route.query.lang === 'de') {
+      this.$store.dispatch('SET_LANG', this.$route.query.lang)
+    }
+    let body = document.body
+    // console.log(this.$route.query.lang)
+    if (this.viewport) {
+      body.style.overflow = 'auto'
+      body.style['overflow-x'] = 'hidden'
+    } else {
+      body.style.overflow = 'hidden'
+    }
     window.addEventListener('wheel', e => {
       this.wheelThrottler(e)
       return false
     }, false)
     window.addEventListener('resize', this.resizeThrottler, false)
+    window.addEventListener('keyup', e => {
+      this.keyUp(e)
+      return false
+    }, false)
     this.resize()
-    this.viewportChange()
+    // this.viewportChange()
   },
   methods: {
     scrolled (move) {
@@ -168,7 +184,7 @@ export default {
     },
     viewportChange () {
       if (this.$route.path !== '/') {
-        console.log(this.viewlandscape)
+        // console.log(this.viewlandscape)
         let body = document.body
         if (this.viewport) {
           body.style.overflow = 'auto'
@@ -176,8 +192,18 @@ export default {
           this.$router.replace({path: '/mobile/', query: {lang: this.lang}})
         } else {
           body.style.overflow = 'hidden'
+          this.transitionLeft = null
+          this.transitionRight = null
           this.$router.replace({path: '/home/', query: {lang: this.lang}})
+          this.$refs.nav.current = 0
         }
+      }
+    },
+    keyUp (e) {
+      if (e.key === 'ArrowUp' || e.key === 'PageUp') {
+        this.scrolled(-10)
+      } else if (e.key === 'ArrowDown' || e.key === 'PageDown') {
+        this.scrolled(10)
       }
     }
   }
