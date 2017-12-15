@@ -180,7 +180,6 @@ export default {
       }
     },
     setOverflowAndEvents () {
-      this.addressBar()
       let body = document.body
       if (this.viewport) {
         body.style.overflow = 'auto'
@@ -189,14 +188,6 @@ export default {
         body.style.overflow = 'hidden'
         this.$store.dispatch('SET_TRANSITIONLEFT', null)
         this.$store.dispatch('SET_TRANSITIONRIGHT', null)
-      }
-    },
-    addressBar () {
-      if (this.$route.path !== '/' && !this.viewlandscape) {
-        console.log('hehe')
-        setTimeout(function () {
-          window.scrollTo(0, 100)
-        }, 10)
       }
     },
     viewportChange () {
