@@ -16,7 +16,10 @@ import { mapGetters } from 'vuex'
 
 export default {
   props: {
-    url: 'https://www.dreifragezeichen.de/www/planetarium#/media/thumbs/Y21zMTY0NzE5Nzg1MjI1MGF1dG9rZXl2aXN1YWxkZnpobzNycmF1bWlua2FtdW1pZXF1YWRyYXRpc2NoLmpwZw==.jpg'
+    url: {
+      default: 'https://www.dreifragezeichen.de/www/planetarium#/media/thumbs/Y21zMTY0NzE5Nzg1MjI1MGF1dG9rZXl2aXN1YWxkZnpobzNycmF1bWlua2FtdW1pZXF1YWRyYXRpc2NoLmpwZw==.jpg',
+      type: String
+    }
   },
   computed: {
     ...mapGetters({

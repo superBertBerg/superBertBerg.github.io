@@ -16,7 +16,10 @@ import { mapGetters } from 'vuex'
 
 export default {
   props: {
-    url: 'http://www.zeitversteher.de/'
+    url: {
+      default: 'http://www.zeitversteher.de/',
+      type: String
+    }
   },
   computed: {
     ...mapGetters({
