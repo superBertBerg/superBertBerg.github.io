@@ -3,7 +3,9 @@
       <div :class="{mob: viewlandscape}" class="middle">
         <div class="inner">
           <p :class="{mob: viewlandscape}" class="tab tMiddle text">{{ myText[lang] }}</p>
-          <img :class="{mob: viewlandscape}" class="maxSize" src="../assets/tabaluga.png"/>
+          <a :href="url" target="_blank">
+            <img :class="{mob: viewlandscape}" class="maxSize" src="../assets/tabaluga.png"/>
+          </a>
         </div>
       </div>
     </div>
@@ -13,6 +15,9 @@
 import { mapGetters } from 'vuex'
 
 export default {
+  props: {
+    url: 'http://www.zeitversteher.de/'
+  },
   computed: {
     ...mapGetters({
       text: 'text',
