@@ -62,8 +62,7 @@ const store = new Vuex.Store({
         de: [
           'IMPRESSUM\n',
           'Inhaltlich verantwortlich i.S. des Presserechtes bzw. des Telemediengesetzes (§ 5 TMG):\n',
-          'the content dome - Gesellschaft für immersive Medien mbH,\n',
-          'Grosse Reichenstr. 27 | 20457 Hamburg\n',
+          'the content dome - Gesellschaft für immersive Medien mbH, \nGrosse Reichenstr. 27 | 20457 Hamburg\n',
           'GF: Markus Schäfer, Peter Roeschies\n',
           'HRB: 127893  |  USt-IdNr.: DE290405001\n',
           'HAFTUNGSAUSSCHLUSS\n',
@@ -74,8 +73,7 @@ const store = new Vuex.Store({
         en: [
           'IMPRINT',
           'Publisher and responsible in terms of § 5 TMG:',
-          'the content dome - Gesellschaft für immersive Medien mbH,',
-          'Grosse Reichenstr. 27 | 20457 Hamburg',
+          'the content dome - Gesellschaft für immersive Medien mbH, \nGrosse Reichenstr. 27 | 20457 Hamburg',
           'GF: Markus Schäfer, Peter Roeschies',
           'HRB: 127893  |  VAT identification: DE290405001',
           'DISCLAIMER',
