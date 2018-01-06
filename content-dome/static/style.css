@@ -512,10 +512,6 @@ span {
   transform: translateY(-50%);
 }
 
-.noPadding {
-  padding: 0;
-}
-
 .padding {
   padding-top: 40px;
 }

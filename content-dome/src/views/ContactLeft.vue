@@ -4,7 +4,7 @@
       <div :class="{mob: viewlandscape}" class="inner">
         <div :class="{mobl: viewlandscape}">
           <img v-show="!viewlandscape" src="../assets/content_dome_page.png"/>
-          <!--<p :class="{noPadding: viewlandscape}" class="tSpaceB tSmall text tab">{{ myText[lang][0] }}</p>-->
+          <p :style="{ padding: 0 }" class="tSpaceB tSmall text tab">{{ myText[lang][0] }}</p>
           <p class="tSmall text">{{ myText[lang][1]}}</p><br>
           <p class="tSmall text">{{ myText[lang][2]}}</p><br>
           <p class="tSmall text">{{ myText[lang][3]}}</p><br>
