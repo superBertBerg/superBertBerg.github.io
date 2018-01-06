@@ -6,7 +6,7 @@
           <img v-show="!viewlandscape" src="../assets/content_dome_page.png"/>
           <div></div>
           <p></p>
-          <p class=""></p><br/>
+          <p class="tSmall text">{{ myText[lang][1]}}</p><br/>
           <p class="tSmall text">{{ myText[lang][1]}}</p><br/>
           <p class="tSmall text">{{ myText[lang][2]}}</p><br/>
           <p class="tSmall text">{{ myText[lang][3]}}</p><br/>
