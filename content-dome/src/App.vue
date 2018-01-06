@@ -71,7 +71,7 @@ export default {
       resizeTimeout: null,
       tstart: 0,
       tend: 0,
-      rescale: 700,
+      rescale: 813,
       pseudoKey: [
         0,
         1,
@@ -110,6 +110,7 @@ export default {
   methods: {
     scrolled (move) {
       if (!this.viewport) {
+        console.log(this.viewport)
         let leng = this.$refs.nav.current
         if (move < 0) {
           this.$store.dispatch('SET_TRANSITIONRIGHT', 'up')
