@@ -377,6 +377,10 @@ span {
   .maxSize {
     max-width: 70%;
   }
+
+  .tSmall.text.iphoneBug {
+    font-size: 17px;
+  }
 }
 
 @media screen and (width: 768px) and (height: 1024px) {
@@ -423,6 +427,10 @@ span {
     padding-top: 30px;
     padding-bottom: 30px;
   }
+
+  .tSmall.text.iphoneBug {
+    font-size: 16px;
+  }
 }
 
 @media screen and (max-width: 450px) and (max-height: 800px) {
@@ -435,6 +443,10 @@ span {
   }
 
   .tSmall.text {
+    font-size: 15px;
+  }
+
+  .tSmall.text.iphoneBug {
     font-size: 15px;
   }
 }
@@ -460,6 +472,10 @@ span {
     padding-top: 20px;
     padding-bottom: 20px;
   }
+
+  .tSmall.text.iphoneBug {
+    font-size: 14px;
+  }
 }
 
 @media screen and (max-width: 700px) and (min-width: 480px) and (max-height: 450px) and (min-width: 300px) {
@@ -472,6 +488,10 @@ span {
   }
 
   .tSmall.text {
+    font-size: 15px;
+  }
+
+  .tSmall.text.iphoneBug {
     font-size: 15px;
   }
 }
