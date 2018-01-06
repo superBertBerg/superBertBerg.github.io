@@ -7,8 +7,7 @@
           <p class="tSmall text">{{ myText[lang][0]}}</p><br/>
           <p class="tSmall text">{{ myText[lang][1]}}</p><br/>
           <p class="tSmall text">{{ myText[lang][2]}}</p><br/>
-          <p class="tSmall text">{{ myText[lang][3]}} <br/>
-            {{ myText[lang][4]}}</p><br/>
+          <p class="tSmall text">{{ myText[lang][3], myText[lang][4]}} </p><br/>
           <p class="tSmall text">{{ myText[lang][5]}}</p><br/>
         </div>
         <div :class="{mobr: viewlandscape}">
