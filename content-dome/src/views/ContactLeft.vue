@@ -7,6 +7,7 @@
           <div></div>
           <!--<p></p>-->
           <!--<p class="tSmall text">{{ myText[lang][0]}}</p><br/>-->
+          <div><p class="tSmall text">{{ myText[lang][1]}}</p><br/></div>
           <p class="tSmall text">{{ myText[lang][1]}}</p><br/>
           <p class="tSmall text">{{ myText[lang][2]}}</p><br/>
           <p class="tSmall text">{{ myText[lang][3]}}</p><br/>
