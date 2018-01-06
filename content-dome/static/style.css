@@ -474,6 +474,9 @@ span {
   .tSmall.text {
     font-size: 15px;
   }
+  .tSpaceB {
+    padding-top: 0px;
+  }
 }
 
 /* Small landscape responsive css*/
