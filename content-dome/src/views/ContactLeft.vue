@@ -5,7 +5,8 @@
         <div :class="{mobl: viewlandscape}">
           <img v-show="!viewlandscape" src="../assets/content_dome_page.png"/>
           <div></div>
-          <!--<p class=""></p><br/>-->
+          <p></p>
+          <p class="">{{ myText[lang][0]}}</p><br/>
           <p class="tSmall text">{{ myText[lang][1]}}</p><br/>
           <p class="tSmall text">{{ myText[lang][2]}}</p><br/>
           <p class="tSmall text">{{ myText[lang][3]}}</p><br/>
