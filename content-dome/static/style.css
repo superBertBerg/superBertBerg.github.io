@@ -357,7 +357,7 @@ span {
   }
 }
 
-@media screen and (max-width: 850px) and (max-height: 600px) {
+@media screen and (max-width: 850px) {
   .tBig.text {
     font-size: 27px;
   }
@@ -376,10 +376,6 @@ span {
 
   .maxSize {
     max-width: 70%;
-  }
-
-  .tSpaceB {
-    padding-top: 0px;
   }
 }
 
@@ -433,7 +429,7 @@ span {
   }
 }
 
-@media screen and (max-width: 450px) and (max-height: 800px) {
+@media screen and (max-width: 450px) {
   .tBig.text {
     font-size: 27px;
   }
@@ -444,52 +440,32 @@ span {
 
   .tSmall.text {
     font-size: 15px;
-  }
-
-  .tSpaceB {
-    padding-top: 0px;
   }
 }
 
 @media (max-width: 360px) {
   .tBig.text {
-    font-size: 23px;
-  }
+  font-size: 23px;
+}
 
   .tMiddle.text {
-    font-size: 18px;
-  }
+  font-size: 18px;
+}
 
   .tSmall.text {
-    font-size: 14px;
-  }
+  font-size: 14px;
+}
 
   .tSpaceB {
-    padding-top: 50px;
-  }
+  padding-top: 50px;
+}
 
   .tSpaceM {
-    padding-top: 20px;
-    padding-bottom: 20px;
-  }
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
 }
 
-@media screen and (max-width: 700px) and (min-width: 480px) and (max-height: 450px) {
-  .tBig.text {
-    font-size: 27px;
-  }
-
-  .tMiddle.text {
-    font-size: 20px;
-  }
-
-  .tSmall.text {
-    font-size: 15px;
-  }
-  .tSpaceB {
-    padding-top: 0px;
-  }
-}
 
 /* Small landscape responsive css*/
 
@@ -537,4 +513,10 @@ span {
 
 .mob.inner {
   height: 80%;
+}
+
+
+
+.paddingBottom {
+  padding-bottom: 0;
 }
