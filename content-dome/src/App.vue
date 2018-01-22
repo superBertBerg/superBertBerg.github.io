@@ -145,11 +145,10 @@ export default {
     resize () {
       let retVal = false
       let w = Math.max(document.documentElement.clientWidth, window.innerWidth || 0)
-      let h = Math.max(document.documentElement.clientHeight, window.innerHeight || 0)
       if (this.rescale > w) {
         this.$store.dispatch('SET_VIEWPORT', true)
         this.$store.dispatch('SET_VIEWLANDSCAPE', false)
-        if (w >= 480 && h > 300 && h < 450) {
+        if (w >= 480 && this.viewport) {
           this.$store.dispatch('SET_VIEWLANDSCAPE', true)
         }
         this.$el.removeEventListener('touchmove', this.stopIt)
