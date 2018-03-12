@@ -49,7 +49,8 @@ export default {
       initializeMenu: 'initializeMenu',
       lang: 'lang',
       transitionLeft: 'transitionLeft',
-      transitionRight: 'transitionRight'
+      transitionRight: 'transitionRight',
+      iOS: 'iOS'
     })
   },
   watch: {
@@ -63,6 +64,16 @@ export default {
     },
     viewlandscape () {
       this.viewportChange()
+      // console.log(this.iOS)
+      if (this.iOS) {
+        // console.log('rerender')
+        var siteHeader = document.getElementById('iOShelper')
+
+        siteHeader.style.display = 'none'
+        // eslint-disable-next-line
+        siteHeader.offsetHeight // no need to store this anywhere, the reference is enough
+        siteHeader.style.display = 'block'
+      }
     }
   },
   data () {
@@ -85,6 +96,12 @@ export default {
     }
   },
   mounted () {
+    // console.log((navigator.userAgent))
+    if (/iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream) {
+      this.$store.dispatch('SET_IOS', true)
+    } else {
+      this.$store.dispatch('SET_IOS', false)
+    }
     if (this.$route.query.lang === 'en' || this.$route.query.lang === 'de') {
       this.$store.dispatch('SET_LANG', this.$route.query.lang)
     }
@@ -110,7 +127,6 @@ export default {
   methods: {
     scrolled (move) {
       if (!this.viewport) {
-        console.log(this.viewport)
         let leng = this.$refs.nav.current
         if (move < 0) {
           this.$store.dispatch('SET_TRANSITIONRIGHT', 'up')

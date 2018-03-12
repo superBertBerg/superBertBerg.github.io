@@ -90,7 +90,8 @@ const store = new Vuex.Store({
         en1: '+49 40 244 37 132',
         en2: 'info@thecontentdome.de'
       }
-    }
+    },
+    iOS: false
   },
   actions: {
     SET_VIEWPORT: ({ commit }, viewport) => {
@@ -107,6 +108,9 @@ const store = new Vuex.Store({
     },
     SET_TRANSITIONRIGHT: ({ commit }, transitionRight) => {
       return new Promise((resolve, reject) => resolve(commit('SET_TRANSITIONRIGHT', { transitionRight })))
+    },
+    SET_IOS: ({ commit }, iOS) => {
+      return new Promise((resolve, reject) => resolve(commit('SET_IOS', { iOS })))
     }
   },
   mutations: {
@@ -124,6 +128,9 @@ const store = new Vuex.Store({
     },
     SET_TRANSITIONRIGHT: (state, { transitionRight }) => {
       state.transitionRight = transitionRight
+    },
+    SET_IOS: (state, { iOS }) => {
+      state.iOS = iOS
     }
   },
   getters: {
@@ -147,195 +154,11 @@ const store = new Vuex.Store({
     },
     transitionRight (state) {
       return state.transitionRight
+    },
+    iOS (state) {
+      return state.iOS
     }
   }
 })
-
-  // actions: {
-  //   // ensure data for rendering given list type
-
-  //   LOGIN: ({ commit }, userData) => {
-  //     return new Promise((resolve, reject) => {
-  //       api.login(userData, token => {
-  //         var auth = {
-  //           isAuthenticated: typeof token.token === 'string',
-  //           tokenId: typeof token.token === 'string' ? token.token : '',
-  //           groups: []
-  //         }
-  //         if (auth.isAuthenticated) {
-  //           resolve(commit('SET_AUTHENTICATED', { auth }))
-  //         } else {
-  //           commit('SET_AUTHENTICATED', { auth })
-  //           reject('wrong login data')
-  //         }
-  //       })
-  //     })
-  //   },
-  //   LOGOUT: ({ commit }) => {
-  //     return commit('SESSION_EXPIRED')
-  //   },
-  //   GET_USER_PROFILE: ({ commit }) => {
-  //     return new Promise((resolve, reject) => {
-  //       api.getUserProfile(store.getters.auth, profile => {
-  //         if (profile.user) {
-  //           resolve(commit('RECEIVE_USER_PROFILE', { profile }))
-  //         } else if (profile.detail) {
-  //           if (profile.detail === 'Signature has expired.') {
-  //             resolve(commit('SESSION_EXPIRED'))
-  //           } else {
-  //             reject(profile.detail)
-  //           }
-  //         }
-  //       })
-  //     })
-  //   },
-  //   RENEW_TOKEN_ID: ({ commit }, oldTokenId) => {
-  //     return new Promise((resolve, reject) => {
-  //       api.renewToken(oldTokenId, token => {
-  //         var auth = {
-  //           isAuthenticated: typeof token.token === 'string',
-  //           tokenId: typeof token.token === 'string' ? token.token : '',
-  //           groups: []
-  //         }
-  //         if (auth.isAuthenticated) {
-  //           resolve(commit('SET_AUTHENTICATED', { auth }))
-  //         } else {
-  //           resolve(commit('SESSION_EXPIRED'))
-  //         }
-  //       })
-  //     })
-  //   },
-  //   CREATE_TEXT_RESULT: ({ commit }, textResult) => {
-  //     return new Promise((resolve, reject) => {
-  //       api.createTextResult(store.getters.auth, textResult, result => {
-  //         let rejected = false
-  //         for (let n in result) {
-  //           if ((!Array.isArray(result[n]) && result[n] !== textResult[n]) ||
-  //               (Array.isArray(result[n]) && result.length !== textResult.length)) {
-  //             reject(result.detail)
-  //             // rejected = true
-  //           }
-  //         }
-  //         if (!rejected) {
-  //           resolve()
-  //         } else {
-  //           resolve(commit('SESSION_EXPIRED'))
-  //         }
-  //       })
-  //     })
-  //   },
-  //   GET_TEXT: ({ commit }, id) => {
-  //     return new Promise((resolve, reject) => {
-  //       api.getText(store.getters.auth, id, text => {
-  //         if (typeof text.id === 'number') {
-  //           resolve(commit('RECEIVE_TEXT', { text }))
-  //         } else if (text.detail) {
-  //           if (text.detail === 'Signature has expired.') {
-  //             resolve(commit('SESSION_EXPIRED'))
-  //           } else {
-  //             reject(text.detail)
-  //           }
-  //         }
-  //       })
-  //     })
-  //   },
-  //   GET_RANDOM_TEXT: ({ commit }) => {
-  //     return new Promise((resolve, reject) => {
-  //       api.getRandomText(text => {
-  //         if (typeof text.id === 'number') {
-  //           resolve(commit('RECEIVE_TEXT', { text }))
-  //         } else if (text.detail) {
-  //           if (text.detail === 'Signature has expired.') {
-  //             resolve(commit('SESSION_EXPIRED'))
-  //           } else {
-  //             reject(text.detail)
-  //           }
-  //         }
-  //       })
-  //     })
-  //   },
-  //   GET_ALL_TEXTS: ({ commit }) => {
-  //     return new Promise((resolve, reject) => {
-  //       api.getAllTexts(store.getters.auth, texts => {
-  //         if (texts.results) {
-  //           resolve(commit('RECEIVE_ALL_TEXTS', { texts: texts.results }))
-  //         } else if (texts.detail) {
-  //           if (texts.detail === 'Signature has expired.') {
-  //             resolve(commit('SESSION_EXPIRED'))
-  //           } else {
-  //             reject(texts.detail)
-  //           }
-  //         }
-  //       })
-  //     })
-  //   },
-  //   GET_LESSON: ({ commit }) => {
-  //     return new Promise((resolve, reject) => {
-  //       api.getLesson(store.getters.auth, text => {
-  //         if (typeof text.content === 'string') {
-  //           resolve(commit('RECEIVE_TEXT', { text }))
-  //         } else if (text.detail) {
-  //           if (text.detail === 'Signature has expired.') {
-  //             resolve(commit('SESSION_EXPIRED'))
-  //           } else {
-  //             reject(text.detail)
-  //           }
-  //         }
-  //       })
-  //     })
-  //   },
-  //   SET_CURRENT_TEXT: ({ commit }, text) => {
-  //     return new Promise((resolve, reject) => resolve(commit('SET_CURRENT_TEXT', { text })))
-  //   }
-  // },
-
-  // mutations: {
-  //   SET_AUTHENTICATED: (state, { auth }) => {
-  //     state.auth = auth
-  //     window.localStorage.setItem('auth', JSON.stringify(state.auth))
-  //   },
-  //   RECEIVE_ALL_TEXTS: (state, { texts }) => {
-  //     state.texts.all = texts
-  //   },
-  //   RECEIVE_TEXT: (state, { text }) => {
-  //     state.currentText = text
-  //   },
-  //   RECEIVE_USER_PROFILE: (state, { profile }) => {
-  //     state.userProfile = profile
-  //   },
-  //   SET_CURRENT_TEXT: (state, { text }) => {
-  //     state.currentText = text
-  //   },
-  //   SESSION_EXPIRED: (state) => {
-  //     state.auth = {
-  //       tokenId: '',
-  //       isAuthenticated: false,
-  //       groups: []
-  //     }
-  //     window.localStorage.setItem('auth', JSON.stringify(state.auth))
-  //   }
-  // },
-
-  // getters: {
-  //   auth (state) {
-  //     return state.auth
-  //   },
-  //   userProfile (state) {
-  //     return state.userProfile
-  //   },
-  //   typingResults (state) {
-  //     return state.userProfile ? state.userProfile.typingresults : []
-  //   },
-  //   charResults (state) {
-  //     return state.userProfile ? state.userProfile.charresults : []
-  //   },
-  //   allTexts (state) {
-  //     return state.texts.all
-  //   },
-  //   currentText (state) {
-  //     return state.currentText
-  //   }
-  // }
-// })
 
 export default store
