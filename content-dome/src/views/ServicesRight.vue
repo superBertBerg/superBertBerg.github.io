@@ -1,6 +1,6 @@
 <template>
   <div :class="[{mobile: viewport}, {right: !viewport}]" class="window">
-    <div class="middle">
+    <div class="middle backgroundBlack">
       <div class="inner">
         <br><br><p class="tMiddle text">{{ myText[lang] }}</p><br><br>
         <p class="tMiddle text">{{ myText[lang+"1"] }}</p><br><br>

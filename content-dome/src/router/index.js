@@ -11,7 +11,8 @@ import AboutRightView from '@/views/AboutRight'
 import AboutLeftView from '@/views/AboutLeft'
 import ServicesRightView from '@/views/ServicesRight'
 import ServicesLeftView from '@/views/ServicesLeft'
-
+import ProjectsLeftView from '@/views/ProjectsLeftView'
+import ProjectsRightView from '@/views/ProjectsRightView'
 Vue.use(Router)
 
 const router = new Router({
@@ -37,6 +38,13 @@ const router = new Router({
       }
     },
     {
+      path: '/projects/',
+      components: {
+        projectsLeft: ProjectsLeftView,
+        projectsRight: ProjectsRightView
+      }
+    },
+    {
       path: '/services/',
       components: {
         servicesLeft: ServicesLeftView,
@@ -57,6 +65,8 @@ const router = new Router({
         homeRight: HomeRightView,
         aboutLeft: AboutLeftView,
         aboutRight: AboutRightView,
+        projectsLeft: ProjectsLeftView,
+        projectsRight: ProjectsRightView,
         servicesLeft: ServicesLeftView,
         servicesRight: ServicesRightView,
         contactLeft: ContactLeftView,

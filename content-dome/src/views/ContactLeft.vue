@@ -1,6 +1,6 @@
 <template>
   <div :class="[{mobile: viewport}, {left: !viewport}]" class="window">
-    <div class="middle">
+    <div class="middle backgroundBlack">
       <div :class="{mob: viewlandscape}" class="inner">
         <div :class="{mobl: viewlandscape}">
           <img :class="{paddingBottom: viewlandscape}" v-show="!viewlandscape" src="../assets/content_dome_page.png"/>

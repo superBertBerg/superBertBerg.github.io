@@ -17,6 +17,12 @@
       <transition-group :name="transitionRight">
         <router-view name="aboutRight" v-bind:key="pseudoKey[5]"></router-view>
       </transition-group>
+      <transition-group :name="transitionLeft">
+        <router-view name="projectsLeft" v-bind:key="pseudoKey[3]"></router-view>
+      </transition-group>
+      <transition-group :name="transitionRight">
+        <router-view name="projectsRight" v-bind:key="pseudoKey[3]"></router-view>
+      </transition-group>
       <transition-group :name="transitionRight">
         <router-view name="servicesRight" v-bind:key="pseudoKey[6]"></router-view>
       </transition-group>
@@ -82,7 +88,7 @@ export default {
       resizeTimeout: null,
       tstart: 0,
       tend: 0,
-      rescale: 813,
+      rescale: 651,
       pseudoKey: [
         0,
         1,

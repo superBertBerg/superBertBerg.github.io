@@ -17,12 +17,16 @@ const store = new Vuex.Store({
         id: 1
       },
       {
-        name: 'services',
+        name: 'projects',
         id: 2
       },
       {
-        name: 'contact',
+        name: 'services',
         id: 3
+      },
+      {
+        name: 'contact',
+        id: 4
       }
     ],
     viewport: false,
@@ -48,6 +52,14 @@ const store = new Vuex.Store({
         en: `Audio immersion evolves when sound is
         not experienced through their sources (e.g. loudspeakers)
         but as object-based, spatial acoustics.`
+      },
+      projectsLeft: {
+        de: 'Wir produzieren und <a href="https://vimeo.com/291869089" target="_blank"><u>distributieren</u></a> immersive Inhalte für umgebende Medien.',
+        en: 'We produce, market and <a href="https://vimeo.com/291869089" target="_blank"><u>distribute</u></a> immersive content for surrounding media.'
+      },
+      projectsRight: {
+        de: 'Wir beraten, <a href="https://www.youtube.com/watch?v=WtG5f2jphzw" target="_blank"><u>kuratieren</u></a> und schmieden sowohl künstlerische- als auch Vermarktungs-Allianzen.',
+        en: 'We consult, <a href="https://www.youtube.com/watch?v=WtG5f2jphzw" target="_blank"><u>curate</u></a> and shape artistic- as well as commercial alliances.'
       },
       servicesRight: {
         de: 'Wir produzieren, vermarkten und vertreiben\n' +
@@ -85,10 +97,10 @@ const store = new Vuex.Store({
       contactRight: {
         de: 'the content dome GmbH • Grosse Reichenstr. 27 • 20457 Hamburg',
         de1: '+49 40 244 37 132',
-        de2: 'info@thecontentdome.de',
+        de2: '<a href="mailto:info@thecontentdome.de">info@thecontentdome.de</a>',
         en: 'the content dome GmbH • Grosse Reichenstr. 27 • 20457 Hamburg',
         en1: '+49 40 244 37 132',
-        en2: 'info@thecontentdome.de'
+        en2: '<a href="mailto:info@thecontentdome.de">info@thecontentdome.de</a>'
       }
     },
     iOS: false

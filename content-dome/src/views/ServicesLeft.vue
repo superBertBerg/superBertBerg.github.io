@@ -1,6 +1,6 @@
 <template>
   <div :class="[{mobile: viewport}, {left: !viewport}]" class="window">
-    <div class="middle backgroundBlack">
+    <div class="middle">
       <img src="../assets/content_dome_immersive_media.png"/>
       </div>
     </div>

@@ -12,7 +12,7 @@
             <img src="../assets/ic_phone_iphone_white_24px.svg">
             <p class="tSpaceM tSmall text">{{ myText[lang + "1" ]}}</p>
             <img src="../assets/ic_mail_outline_white_24px.svg">
-            <p class="tSpaceM tSmall text">{{ myText[lang + "2" ]}}</p>
+            <p v-html='myText[lang + "2" ]' class="tSpaceM tSmall text"></p>
           </div>
         </div>
       </div>
