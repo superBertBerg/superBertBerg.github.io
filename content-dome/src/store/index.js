@@ -81,7 +81,8 @@ const store = new Vuex.Store({
           'HAFTUNGSAUSSCHLUSS\n',
           'Trotz sorgfältiger inhaltlicher Kontrolle übernehmn wir keine Haftung für die Inhalte externer Links.\n' +
           'Für den Inhalt der verlinkten Seiten sind ausschließlich deren Betreiber verantwortlich.\n' +
-          'Alle Inhalte unterliegen dem Urheberrecht.'
+          'Alle Inhalte unterliegen dem Urheberrecht.',
+          '<a href="static/datenschutz.html" target="_blank">Datenschutz</a>'
         ],
         en: [
           'IMPRINT',
@@ -91,7 +92,8 @@ const store = new Vuex.Store({
           'GF: Markus Schäfer, Peter Roeschies',
           'HRB: 127893  |  VAT identification: DE290405001',
           'DISCLAIMER',
-          'Although this site is checked and updated with due diligence on a regular basis we assume no responsibility for the contents of websites that can be accessed through hyperlinks. Contents and structure are copyright protected.'
+          'Although this site is checked and updated with due diligence on a regular basis we assume no responsibility for the contents of websites that can be accessed through hyperlinks. Contents and structure are copyright protected.',
+          '<a href="static/datenschutz.html" target="_blank">Privacy Policy</a>'
         ]
       },
       contactRight: {

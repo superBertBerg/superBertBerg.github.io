@@ -14,6 +14,7 @@
         <div :class="{mobr: viewlandscape}">
           <p class="tSmall text">{{ myText[lang][6]}}</p><br/>
           <p class="tSmall disc text">{{ myText[lang][7]}}</p>
+          <p v-html='myText[lang][8]' class="tSpaceM tSmall text"></p>
         </div>
       </div>
     </div>
